@@ -19,7 +19,7 @@ export default () => {
         (c) => c !== res && Array.isArray(c?.props?.children),
         { maxRecrusions: 100 },
       ) as React.ReactElement;
-      container?.props?.children?.splice?.(1,0,<Sidebar />);
+      container?.props?.children?.splice?.(1, 0, <Sidebar />);
       return res;
     });
     return res;
