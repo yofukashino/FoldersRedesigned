@@ -1,6 +1,6 @@
 {
   "name": "folders-redesigned",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modifies the organization of Discord's folders and servers within a new container while introducing additional functionalities to streamline, personalize, and oversee your folders more efficiently.",
   "engines": {
     "node": ">=14.0.0"
