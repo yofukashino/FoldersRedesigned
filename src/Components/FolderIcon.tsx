@@ -13,7 +13,7 @@ export default React.memo(
       return CurrentFolder.openIcon ? (
         <div
           {...{
-            className: "redesigned-folders-by-tharki",
+            className: "foldersRedesigned-folderIcon",
             style: {
               backgroundImage: `url(${CurrentFolder.openIcon})`,
               width: `${SettingValues.get("iconSize", defaultSettings.iconSize)}%`,
@@ -28,7 +28,7 @@ export default React.memo(
     return CurrentFolder.closedIcon ? (
       <div
         {...{
-          className: "redesigned-folders-by-tharki",
+          className: "foldersRedesigned-folderIcon",
           style: {
             backgroundImage: `url(${CurrentFolder.closedIcon})`,
             width: `${SettingValues.get("iconSize", defaultSettings.iconSize)}%`,

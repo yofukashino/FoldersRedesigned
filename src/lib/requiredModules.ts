@@ -35,7 +35,7 @@ export const AppViewClasses = webpack.getByProps<Types.AppViewClasses>(
   "app",
   "appAsidePanelWrapper",
 );
-export const Animations = webpack.getByProps<Types.Animations>(["a", "animated", "useTransition"]);
+export const Animations = webpack.getByProps<Types.Animations>(["Transition", "animated"]);
 export const ChannelSelectUtils = webpack.getByProps<Types.ChannelSelectUtils>(
   "selectChannel",
   "selectPrivateChannel",

@@ -2,10 +2,10 @@ import { common } from "replugged";
 import { SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import {
-  SidebarContainer,
-  GuildsNavClasses,
-  ExpandedGuildFolderStore,
   Animations,
+  ExpandedGuildFolderStore,
+  GuildsNavClasses,
+  SidebarContainer,
 } from "../lib/requiredModules";
 const { React, flux: Flux } = common;
 
@@ -26,7 +26,7 @@ export default React.memo(() => {
       <div
         {...{
           key: `${hide}`,
-          className: "tharki-sidebar",
+          className: "foldersRedesigned-sidebar",
         }}>
         {hide ? null : (
           <Sidebar
@@ -55,7 +55,7 @@ export default React.memo(() => {
             {...{
               key: `${hide}`,
               style,
-              className: "tharki-sidebar",
+              className: "foldersRedesigned-sidebar",
             }}>
             <Sidebar
               {...{

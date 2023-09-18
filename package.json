@@ -22,6 +22,7 @@
   "author": "Ahlawat",
   "license": "MIT",
   "devDependencies": {
+    "@react-spring/types": "^9.7.3",
     "@types/node": "^18.17.17",
     "@types/react": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
@@ -35,5 +36,7 @@
     "replugged": "^4.6.3",
     "typescript": "^4.9.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-spring": "^9.7.2"
+  }
 }
