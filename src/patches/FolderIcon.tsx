@@ -2,7 +2,7 @@ import { PluginInjector } from "../index";
 import { GuildsNav, GuildsNavClasses } from "../lib/requiredModules";
 import FolderIcon from "../Components/FolderIcon";
 import utils from "../lib/utils";
-export default () => {
+export default (): void => {
   PluginInjector.after(
     GuildsNav,
     "FolderIcon",

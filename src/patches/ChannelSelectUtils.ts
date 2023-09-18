@@ -8,7 +8,7 @@ import {
   GuildAndFolderUtils,
 } from "../lib/requiredModules";
 const { channels: UltimateChannelStore } = common;
-export default () => {
+export default (): void => {
   PluginInjector.after(
     ChannelSelectUtils,
     "selectChannel",

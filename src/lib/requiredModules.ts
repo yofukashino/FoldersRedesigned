@@ -44,7 +44,6 @@ export const GuildAndFolderUtils = webpack.getByProps<Types.GuildAndFolderUtils>
   "toggleGuildFolderExpand",
   "toggleGuildFolderExpand",
 ]);
-export const ImageInput = webpack.getFunctionBySource<React.ComponentClass<any>>(
-  webpack.getBySource("multiple:!0,"),
-  ".handleFileChange",
-);
+export const ImageInput = webpack.getFunctionBySource<
+  React.ComponentClass<{ onChange: (...args: unknown[]) => void }>
+>(webpack.getBySource("multiple:!0,"), ".handleFileChange");

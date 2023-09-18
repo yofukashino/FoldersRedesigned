@@ -3,7 +3,7 @@ import { AppView, AppViewClasses } from "../lib/requiredModules";
 import Sidebar from "../Components/Sidebar";
 import Types from "../types";
 import utils from "../lib/utils";
-export default () => {
+export default (): void => {
   PluginInjector.after(AppView.BaseLayer, "type", (_args, res: React.ReactElement) => {
     const LayerContainer = utils.findInReactTree(
       res,

@@ -3,7 +3,7 @@ import { PluginInjector } from "../index";
 import { SidebarContainer } from "../lib/requiredModules";
 import utils from "../lib/utils";
 const { i18n } = common;
-export default () => {
+export default (): void => {
   PluginInjector.after(SidebarContainer, "Sidebar", (_args, res: React.ReactElement) => {
     const scroller = utils.findInReactTree(
       res,

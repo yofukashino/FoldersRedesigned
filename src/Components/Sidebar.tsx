@@ -40,12 +40,14 @@ export default React.memo(() => {
   }
   return (
     <Animations.Transition
-      items={!hide}
-      from={{ width: 0 }}
-      enter={{ width: GuildNavElement.getBoundingClientRect().width }}
-      leave={{ width: 0 }}
-      config={{
-        duration: SettingValues.get("sidebarAnimationMs", defaultSettings.sidebarAnimationMs),
+      {...{
+        items: !hide,
+        from: { width: 0 },
+        enter: { width: GuildNavElement.getBoundingClientRect().width },
+        leave: { width: 0 },
+        config: {
+          duration: SettingValues.get("sidebarAnimationMs", defaultSettings.sidebarAnimationMs),
+        },
       }}>
       {(style, show) =>
         show && (

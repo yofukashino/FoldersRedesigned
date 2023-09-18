@@ -9,7 +9,7 @@ import {
 import Types from "../types";
 
 const { lodash } = common;
-export default () => {
+export default (): void => {
   PluginInjector.after(
     SortedGuildStore,
     "getGuildsTree",

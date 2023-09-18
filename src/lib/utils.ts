@@ -95,13 +95,13 @@ export const useSetting = <
     onChange: (newValue: Types.ValType<Types.NestedType<T, P> | F>) => {
       const isObj = newValue && typeof newValue === "object";
       const value = isObj && "value" in newValue ? newValue.value : newValue;
-      const checked = isObj && "checked" in newValue ? newValue.checked : undefined;
+      const checked = isObj && "checked" in newValue ? newValue.checked : null;
       const target =
         isObj && "target" in newValue && newValue.target && typeof newValue.target === "object"
           ? newValue.target
-          : undefined;
-      const targetValue = target && "value" in target ? target.value : undefined;
-      const targetChecked = target && "checked" in target ? target.checked : undefined;
+          : null;
+      const targetValue = target && "value" in target ? target.value : null;
+      const targetChecked = target && "checked" in target ? target.checked : null;
       const finalValue = checked ?? targetChecked ?? targetValue ?? value ?? newValue;
 
       setValue(finalValue as Types.NestedType<T, P>);

@@ -5,7 +5,7 @@ export { types as DefaultTypes } from "replugged";
 export interface GenericModule extends Record<string, DefaultTypes.AnyFunction> {}
 
 export interface GenericMemo {
-  $$typeof: Symbol;
+  $$typeof: symbol;
   compare: DefaultTypes.AnyFunction;
   type: DefaultTypes.AnyFunction;
 }
@@ -109,22 +109,55 @@ export interface GuildsTree {
 }
 
 export interface Animations {
-  BailSignal: React.ComponentType<any>;
-  Controller: React.ComponentType<any>;
-  FrameLoop: React.ComponentType<any>;
-  FrameValue: React.ComponentType<any>;
-  a: React.ComponentType<any>;
-  animated: React.ComponentType<any> & {
-    div: React.ComponentType<any>;
+  BailSignal: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  Controller: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  FrameLoop: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  FrameValue: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  a: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  animated: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  > & {
+    div: React.ComponentType<
+      React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+    >;
   };
   Globals: { __esModule: true };
-  Interpolation: React.ComponentType<any>;
-  Spring: React.ComponentType<any>;
-  SpringContext: React.ComponentType<any>;
+  Interpolation: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  Spring: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  SpringContext: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
   SpringHandle: { create: DefaultTypes.AnyFunction };
-  SpringValue: React.ComponentType<any>;
-  Trail: React.ComponentType<any>;
-  Transition: React.ComponentType<any>;
+  SpringValue: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  Trail: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  Transition: React.ComponentType<{
+    items: boolean;
+    from: { width: number };
+    enter: { width: number };
+    leave: { width: number };
+    config: {
+      duration: number;
+    };
+    children: (...args: unknown[]) => React.ReactElement;
+  }>;
   config: {
     default: { tension: number; friction: number };
     gentle: { tension: number; friction: number };
@@ -133,16 +166,36 @@ export interface Animations {
     stiff: { tension: number; friction: number };
     wobbly: { tension: number; friction: number };
   };
-  createInterpolator: React.ComponentType<any>;
-  inferTo: React.ComponentType<any>;
-  interpolate: React.ComponentType<any>;
-  to: React.ComponentType<any>;
-  update: React.ComponentType<any>;
-  useChain: React.ComponentType<any>;
-  useSpring: React.ComponentType<any>;
-  useSprings: React.ComponentType<any>;
-  useTrail: React.ComponentType<any>;
-  useTransition: React.ComponentType<any>;
+  createInterpolator: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  inferTo: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  interpolate: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  to: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  update: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  useChain: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  useSpring: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  useSprings: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  useTrail: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
+  useTransition: React.ComponentType<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  >;
   __esModule: true;
 }
 

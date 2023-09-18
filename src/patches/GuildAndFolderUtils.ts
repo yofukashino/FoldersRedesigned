@@ -1,7 +1,7 @@
 import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import { ExpandedGuildFolderStore, GuildAndFolderUtils } from "../lib/requiredModules";
-export default () => {
+export default (): void => {
   PluginInjector.before(GuildAndFolderUtils, "toggleGuildFolderExpand", ([folderId]: [string]) => {
     const expandedFolders = ExpandedGuildFolderStore.getExpandedFolders() as Set<string>;
     if (

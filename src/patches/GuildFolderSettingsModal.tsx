@@ -3,7 +3,7 @@ import { GuildFolderSettingsModalPromise } from "../lib/requiredModules";
 import FolderSettings from "../Components/FolderSettings";
 import utils from "../lib/utils";
 import Types from "../types";
-export default async () => {
+export default async (): Promise<void> => {
   const GuildFolderSettingsModal = await GuildFolderSettingsModalPromise;
   PluginInjector.after(
     GuildFolderSettingsModal.prototype,
