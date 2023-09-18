@@ -1,0 +1,16 @@
+div:has(> .redesigned-folders-by-tharki) {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.redesigned-folders-by-tharki {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.tharki-sidebar {
+  display: flex;
+}
