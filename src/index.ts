@@ -9,8 +9,8 @@ export const SettingValues = await settings.init("dev.tharki.FoldersRedesigned",
 import { applyInjections } from "./patches";
 
 export const start = (): void => {
-  void registerSettings();
-  void applyInjections();
+  registerSettings();
+  applyInjections();
 };
 
 export const stop = (): void => {
