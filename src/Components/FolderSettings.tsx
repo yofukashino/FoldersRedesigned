@@ -1,4 +1,4 @@
-import { components, webpack } from "replugged";
+import { components } from "replugged";
 import { SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import { ImageInput } from "../lib/requiredModules";
@@ -40,10 +40,7 @@ export default ({
       <SwitchItem
         {...{
           value: iconType === "custom",
-          onChange: (e) => {
-            e ? setIconType("custom") : setIconType("default");
-            return e;
-          },
+          onChange: (e) => (e ? setIconType("custom") : setIconType("default")),
           note: "If you would like to use custom icons for this folder.",
         }}>
         Custom Icons

@@ -113,7 +113,16 @@ export interface Animations {
   animated: ReactSpring.AnimatedComponent<"animate"> & {
     div: ReactSpring.AnimatedComponent<"div">;
   };
-  Transition: ReactSpring.TransitionFn;
+  Transition: React.ComponentType<{
+    items: boolean;
+    from: { width: number };
+    enter: { width: number };
+    leave: { width: number };
+    config: {
+      duration: number;
+    };
+    children: (style: Record<string, string>, show: boolean) => React.ReactNode;
+  }>;
   __esModule: true;
 }
 
