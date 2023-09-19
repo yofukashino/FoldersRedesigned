@@ -1,4 +1,4 @@
-import { components, common } from "replugged";
+import { common, components } from "replugged";
 import { PluginLogger, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import { SortedGuildStore } from "../lib/requiredModules";

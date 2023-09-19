@@ -2,9 +2,9 @@ import { common } from "replugged";
 import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import {
-  SortedGuildStore,
-  GuildTreeConstructors,
   ExpandedGuildFolderStore,
+  GuildTreeConstructors,
+  SortedGuildStore,
 } from "../lib/requiredModules";
 import Types from "../types";
 

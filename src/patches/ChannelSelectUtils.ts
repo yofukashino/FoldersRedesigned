@@ -3,9 +3,9 @@ import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import {
   ChannelSelectUtils,
-  SortedGuildStore,
   ExpandedGuildFolderStore,
   GuildAndFolderUtils,
+  SortedGuildStore,
 } from "../lib/requiredModules";
 const { channels: UltimateChannelStore } = common;
 export default (): void => {
@@ -13,7 +13,7 @@ export default (): void => {
     ChannelSelectUtils,
     "selectChannel",
     ([{ guildId }]: [{ guildId: string }], res) => {
-      const lastChannelId = UltimateChannelStore.getLastSelectedChannelId();
+      const lastChannelId = UltimateChannelStore.getCurrentlySelectedChannelId();
       const lastChannel = UltimateChannelStore.getChannel(lastChannelId);
       if (lastChannel?.guild_id !== guildId) {
         const guildFolder = SortedGuildStore.getGuildFolders().find((f) =>
