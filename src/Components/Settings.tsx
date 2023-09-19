@@ -50,7 +50,7 @@ export const Settings = (): React.ReactElement => {
             onValueRender: (value) => `${value.toFixed(1)}ms`,
             minValue: 100,
             maxValue: 300,
-            note: "How Much time the Animation for sidebar take in ms",
+            note: "How much time the animation for sidebar take in ms",
           }}>
           Animation Time
         </SliderItem>
