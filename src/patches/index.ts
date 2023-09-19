@@ -3,6 +3,7 @@ import utils from "../lib/utils";
 import patchAppView from "./AppView";
 import patchChannelSelectUtils from "./ChannelSelectUtils";
 import patchFolderIcon from "./FolderIcon";
+import patchFolderUnreadPill from "./FolderUnreadPill";
 import patchGuildAndFolderUtils from "./GuildAndFolderUtils";
 import patchGuildFolderSettingsModal from "./GuildFolderSettingsModal";
 import patchSettingValues from "./SettingValues";
@@ -12,6 +13,7 @@ export const applyInjections = (): void => {
   patchAppView();
   patchChannelSelectUtils();
   patchFolderIcon();
+  patchFolderUnreadPill();
   patchGuildAndFolderUtils();
   patchSettingValues();
   void patchGuildFolderSettingsModal();

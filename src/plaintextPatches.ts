@@ -34,12 +34,14 @@ export default [
         replace: `getGuildsTree({custom:className?.includes?.("foldersRedesigned-sidebar")})`,
       },
       {
-        match: /(\w+\.folderNode)(,\w+=\w+\(\w+,\["folderNode"\]\))/,
-        replace: `replugged.webpack.getByStoreName("SortedGuildStore").getGuildsTree({original:true}).nodes[$1.id]$2`,
-      },
-      {
-        match: /(\),{folderNode:)(\w+)/,
-        replace: `$1replugged.webpack.getByStoreName("SortedGuildStore").getGuildsTree().nodes[$2.id]`,
+        match: /const (\w+)=\w+\.memo\(\(function\(\w+\){var[^]*?onContextMenu:\w+}\)\)}\)\);/,
+        replace:
+          `$&replugged.webpack.waitForModule(replugged.webpack.filters.bySource("guildsnav"),{raw:true, timeout: 10000}).then((mod)=>Object.defineProperty(mod.exports,"FolderUnreadPill",{` +
+          `get:()=>$1,` +
+          `set:(value)=>$1=value,` +
+          `configurable:true,` +
+          `writeable:true` +
+          `}));`,
       },
     ],
   },
