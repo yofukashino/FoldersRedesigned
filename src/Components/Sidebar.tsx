@@ -22,7 +22,6 @@ export default React.memo(() => {
         .filter(Boolean);
     },
   );
-  console.log(expandedFolders);
   const hide = !SettingValues.get("sidebar", false) || !expandedFolders.length;
   const { Sidebar } = SidebarContainer as { Sidebar: React.ComponentType<{ className: string }> };
   const GuildNavElement = document.querySelector(`.${GuildsNavClasses.guilds}`);
