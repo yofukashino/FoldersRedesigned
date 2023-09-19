@@ -1,6 +1,5 @@
 import { PluginInjector } from "../index";
 import { GuildsNav, GuildsNavClasses, SortedGuildStore } from "../lib/requiredModules";
-import FolderIcon from "../Components/FolderIcon";
 import utils from "../lib/utils";
 import Types from "../types";
 export default (): void => {
