@@ -31,10 +31,6 @@ export const GuildTreeConstructors = {
 export const { exports: AppView } = webpack.getBySource<{
   exports: { BaseLayer: Types.GenericMemo };
 }>("isCopiedStreakGodlike", { raw: true });
-export const AppViewClasses = webpack.getByProps<Types.AppViewClasses>(
-  "app",
-  "appAsidePanelWrapper",
-);
 export const Animations = webpack.getByProps<Types.Animations>(["Transition", "animated"]);
 export const ChannelSelectUtils = webpack.getByProps<Types.ChannelSelectUtils>(
   "selectChannel",

@@ -11,9 +11,11 @@ const { React, flux: Flux } = common;
 
 export default React.memo(() => {
   const expandedFolders = Flux.useStateFromStores([ExpandedGuildFolderStore], () => {
-    return Array.from(ExpandedGuildFolderStore.getExpandedFolders() as Set<string>).filter(
-      (id) => !SettingValues.get("sidebarBlacklist", defaultSettings.sidebarBlacklist)?.[id],
-    );
+    return Array.from(ExpandedGuildFolderStore.getExpandedFolders() as Set<string>)
+      .filter(
+        (id) => !SettingValues.get("sidebarBlacklist", defaultSettings.sidebarBlacklist)?.[id],
+      )
+      .filter(Boolean);
   });
   const hide = !SettingValues.get("sidebar", false) || !expandedFolders.length;
   const { Sidebar } = SidebarContainer as { Sidebar: React.ComponentType<{ className: string }> };
@@ -31,7 +33,7 @@ export default React.memo(() => {
         {hide ? null : (
           <Sidebar
             {...{
-              className: `${GuildsNavClasses.guilds} tharki`,
+              className: `${GuildsNavClasses.guilds} foldersRedesigned-sidebar`,
             }}
           />
         )}
@@ -59,7 +61,7 @@ export default React.memo(() => {
             }}>
             <Sidebar
               {...{
-                className: `${GuildsNavClasses.guilds} tharki`,
+                className: `${GuildsNavClasses.guilds} foldersRedesigned-sidebar`,
                 style,
               }}
             />

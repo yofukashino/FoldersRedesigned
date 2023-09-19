@@ -36,7 +36,7 @@ export const Settings = (): React.ReactElement => {
               "sidebarAnimation",
               defaultSettings.sidebarAnimation,
             ),
-            note: "Animate opening and closing of dedicated the folder sidebar",
+            note: "Animate the opening and closing of the dedicated folder sidebar",
           }}>
           Sidebar Animation
         </SwitchItem>

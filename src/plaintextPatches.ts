@@ -31,7 +31,7 @@ export default [
       },
       {
         match: "getGuildsTree()",
-        replace: `getGuildsTree({custom:className?.includes?.("tharki")})`,
+        replace: `getGuildsTree({custom:className?.includes?.("foldersRedesigned-sidebar")})`,
       },
       {
         match: /(\w+\.folderNode)(,\w+=\w+\(\w+,\["folderNode"\]\))/,
@@ -48,7 +48,7 @@ export default [
     replacements: [
       {
         match:
-          /(\.DnDKeyboardHelpBar\s*,\s*{\s*}\s*\)\s*,\s*\(\s*0\s*,\s*\w+\s*\.\s*\w+\s*\)\s*\(\s*[\w_$]+\s*,\s*{\s*}\s*\)\s*]\s*}\s*\)\s*}\s*const\s*([\w_$]+)\s*=\s*[\w_$]+\s*\.\s*memo\(\s*[\w_$]+\s*\)\s*;)(\s*var)/,
+          /(function (Ule)\(\){var e,t=\(0,s\.e7\)\(\[I1\.Z\],\(function\(\){return I1\.Z\.hasNotice\(\)[^]*?}\)})(var)/,
         replace:
           `$1replugged.webpack.waitForModule(replugged.webpack.filters.bySource("isCopiedStreakGodlike"),{raw:true, timeout: 10000}).then((mod)=>Object.defineProperty(mod.exports,"BaseLayer",{` +
           `get:()=>$2,` +

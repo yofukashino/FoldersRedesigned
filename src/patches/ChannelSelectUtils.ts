@@ -28,9 +28,9 @@ export default (): void => {
         }
         if (
           SettingValues.get("forceOpen", defaultSettings.forceOpen) &&
-          !ExpandedGuildFolderStore.isFolderExpanded(guildFolder.folderId)
+          !ExpandedGuildFolderStore.isFolderExpanded(guildFolder?.folderId)
         )
-          GuildAndFolderUtils.toggleGuildFolderExpand(guildFolder.folderId);
+          GuildAndFolderUtils.toggleGuildFolderExpand(guildFolder?.folderId);
       }
       return res;
     },

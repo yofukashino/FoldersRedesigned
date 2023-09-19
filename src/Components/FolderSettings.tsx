@@ -31,7 +31,7 @@ export default ({
       {SettingValues.get("sidebar", defaultSettings.sidebar) && (
         <SwitchItem
           {...{
-            ...utils.useSetting(SettingValues, `sidebarBlacklist.${folderId}`, true as boolean),
+            ...utils.useSetting(SettingValues, `sidebarBlacklist.${folderId}`, false as boolean),
             note: "If you would like to blacklist the folder from appearing in the seperate sidebar.",
           }}>
           Sidebar Blacklist
