@@ -171,7 +171,7 @@ export interface GuildAndFolderUtils {
   setMemberFlags: DefaultTypes.AnyFunction;
   setServerDeaf: DefaultTypes.AnyFunction;
   setServerMute: DefaultTypes.AnyFunction;
-  toggleGuildFolderExpand: DefaultTypes.AnyFunction & { isDispatching: boolean };
+  toggleGuildFolderExpand: DefaultTypes.AnyFunction;
   transitionToGuildSync: DefaultTypes.AnyFunction;
   unassignGuildRoleConnection: DefaultTypes.AnyFunction;
   unbanUser: DefaultTypes.AnyFunction;

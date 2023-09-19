@@ -1,3 +1,5 @@
+import { PluginInjector } from "../index";
+import utils from "../lib/utils";
 import patchAppView from "./AppView";
 import patchChannelSelectUtils from "./ChannelSelectUtils";
 import patchFolderIcon from "./FolderIcon";
@@ -15,4 +17,10 @@ export const applyInjections = (): void => {
   void patchGuildFolderSettingsModal();
   patchSidebar();
   patchSortedGuildsStore();
+};
+export const removeInjections = (): void => {
+  PluginInjector.uninjectAll();
+  if (document.querySelector(".foldersRedesigned-sidebar")) {
+    utils.forceUpdateElement(".foldersRedesigned-sidebar");
+  }
 };

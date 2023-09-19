@@ -6,17 +6,23 @@ import {
   ExpandedGuildFolderStore,
   GuildsNavClasses,
   SidebarContainer,
+  SortedGuildStore,
 } from "../lib/requiredModules";
 const { React, flux: Flux } = common;
 
 export default React.memo(() => {
-  const expandedFolders = Flux.useStateFromStores([ExpandedGuildFolderStore], () => {
-    return Array.from(ExpandedGuildFolderStore.getExpandedFolders() as Set<string>)
-      .filter(
-        (id) => !SettingValues.get("sidebarBlacklist", defaultSettings.sidebarBlacklist)?.[id],
-      )
-      .filter(Boolean);
-  });
+  const expandedFolders = Flux.useStateFromStores(
+    [ExpandedGuildFolderStore, SortedGuildStore],
+    () => {
+      return Array.from(ExpandedGuildFolderStore.getExpandedFolders() as Set<string>)
+        .filter(
+          (id) => !SettingValues.get("sidebarBlacklist", defaultSettings.sidebarBlacklist)?.[id],
+        )
+        .filter((id) => SortedGuildStore.getGuildFolders().find((f) => f.folderId === id))
+        .filter(Boolean);
+    },
+  );
+  console.log(expandedFolders);
   const hide = !SettingValues.get("sidebar", false) || !expandedFolders.length;
   const { Sidebar } = SidebarContainer as { Sidebar: React.ComponentType<{ className: string }> };
   const GuildNavElement = document.querySelector(`.${GuildsNavClasses.guilds}`);

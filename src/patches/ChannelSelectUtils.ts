@@ -13,7 +13,7 @@ export default (): void => {
     ChannelSelectUtils,
     "selectChannel",
     ([{ guildId }]: [{ guildId: string }], res) => {
-      const lastChannelId = UltimateChannelStore.getCurrentlySelectedChannelId();
+      const lastChannelId = UltimateChannelStore.getLastSelectedChannelId();
       const lastChannel = UltimateChannelStore.getChannel(lastChannelId);
       if (lastChannel?.guild_id !== guildId) {
         const guildFolder = SortedGuildStore.getGuildFolders().find((f) =>
@@ -28,7 +28,8 @@ export default (): void => {
         }
         if (
           SettingValues.get("forceOpen", defaultSettings.forceOpen) &&
-          !ExpandedGuildFolderStore.isFolderExpanded(guildFolder?.folderId)
+          !ExpandedGuildFolderStore.isFolderExpanded(guildFolder?.folderId) &&
+          guildFolder?.folderId
         )
           GuildAndFolderUtils.toggleGuildFolderExpand(guildFolder?.folderId);
       }

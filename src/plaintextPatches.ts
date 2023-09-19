@@ -48,7 +48,7 @@ export default [
     replacements: [
       {
         match:
-          /(function (Ule)\(\){var e,t=\(0,s\.e7\)\(\[I1\.Z\],\(function\(\){return I1\.Z\.hasNotice\(\)[^]*?}\)})(var)/,
+          /(function\s*(\s*[\w_$]+\s*)\s*\(\s*\)\s*{\s*var\s*\w+\s*,\s*\w+\s*=\s*\(\s*0\s*,\s*\w+\s*\.\s*\w+\s*\)\s*\(\s*\[\s*\w+\s*\.\s*\w+\s*\]\s*,\s*\(\s*function\s*\(\s*\)\s*{\s*return\s*\w+\s*\.\s*\w+\s*\.\s*hasNotice\s*\(\s*\)\s*[^]*?}\s*\)\s*}\s*)(var)/,
         replace:
           `$1replugged.webpack.waitForModule(replugged.webpack.filters.bySource("isCopiedStreakGodlike"),{raw:true, timeout: 10000}).then((mod)=>Object.defineProperty(mod.exports,"BaseLayer",{` +
           `get:()=>$2,` +
