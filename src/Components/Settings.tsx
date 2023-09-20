@@ -19,9 +19,20 @@ export const Settings = (): React.ReactElement => {
   const GuildFolders = Flux.useStateFromStores([SortedGuildStore], () =>
     SortedGuildStore.getGuildFolders().filter((f) => f.folderId),
   );
-  const [guildFolderSettingComponents, setGuildFolderSettingComponents] = React.useState<
-    React.ReactElement[] | null
-  >(null);
+  const guildFolderSettingComponents = GuildFolders.map(({ folderId, folderName }, index) => (
+    <FormItem
+      {...{
+        key: folderName ?? `Server Folder #${index + 1}`,
+        divider: true,
+        style: {
+          marginBottom: "6px",
+        },
+      }}>
+      <FolderSettings
+        {...{ folderId, key: `${SettingValues.get("sidebar", defaultSettings.sidebar)}` }}
+      />
+    </FormItem>
+  ));
   const [generalOpen, setGeneralOpen] = React.useState(false);
   const [folderOpen, setFolderOpen] = React.useState(false);
   const [key, setKey] = React.useState(`${generalOpen} ${folderOpen}`);
@@ -30,23 +41,6 @@ export const Settings = (): React.ReactElement => {
     setKey(`${generalOpen} ${folderOpen}`);
   }, [generalOpen, folderOpen]);
 
-  React.useEffect(() => {
-    const components = GuildFolders.map(({ folderId, folderName }, index) => (
-      <FormItem
-        {...{
-          key: folderName ?? `Server Folder #${index + 1}`,
-          divider: true,
-          style: {
-            marginBottom: "6px",
-          },
-        }}>
-        <FolderSettings
-          {...{ folderId, key: `${SettingValues.get("sidebar", defaultSettings.sidebar)}` }}
-        />
-      </FormItem>
-    ));
-    setGuildFolderSettingComponents(components);
-  }, [GuildFolders]);
   return (
     <div {...{ key }}>
       <Category
