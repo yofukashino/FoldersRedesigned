@@ -26,15 +26,16 @@ export default [
           `}));`,
       },
       {
-        match: /(\w)\.themeOverride,/,
+        match: /(\w)\s*\.\s*themeOverride\s*,/,
         replace: `$&{className}=$1,`,
       },
       {
-        match: "getGuildsTree()",
+        match: /getGuildsTree\s*\(\s*\)/,
         replace: `getGuildsTree({custom:className?.includes?.("foldersRedesigned-sidebar")})`,
       },
       {
-        match: /const (\w+)=\w+\.memo\(\(function\(\w+\){var[^]*?onContextMenu:\w+}\)\)}\)\);/,
+        match:
+          /const\s*(\w+)\s*=\s*\w+\s*\.\s*memo\s*\(\s*\(\s*function\s*\(\s*\w+\s*\)\s*{\s*var[^]*?onContextMenu\s*:\s*\w+\s*}\s*\)\s*\)\s*}\s*\)\s*\)\s*;/,
         replace:
           `$&replugged.webpack.waitForModule(replugged.webpack.filters.bySource("guildsnav"),{raw:true, timeout: 10000}).then((mod)=>Object.defineProperty(mod.exports,"FolderUnreadPill",{` +
           `get:()=>$1,` +
