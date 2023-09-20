@@ -24,7 +24,5 @@ export const applyInjections = (): void => {
 };
 export const removeInjections = (): void => {
   PluginInjector.uninjectAll();
-  if (document.querySelector(".foldersRedesigned-sidebar")) {
-    utils.forceUpdateElement(".foldersRedesigned-sidebar");
-  }
+  void utils.forceRerenderElement(`.${GuildsNavClasses.guilds}`);
 };

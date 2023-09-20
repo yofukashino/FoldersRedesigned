@@ -6,7 +6,7 @@ export const PluginInjector = new Injector();
 export const PluginLogger = Logger.plugin("FoldersRedesigned");
 export const SettingValues = await settings.init("dev.tharki.FoldersRedesigned", defaultSettings);
 
-import { applyInjections } from "./patches";
+import { applyInjections, removeInjections } from "./patches";
 
 export const start = (): void => {
   registerSettings();
@@ -14,7 +14,7 @@ export const start = (): void => {
 };
 
 export const stop = (): void => {
-  PluginInjector.uninjectAll();
+  removeInjections();
 };
 
 export { Settings } from "./Components/Settings.jsx";

@@ -7,15 +7,21 @@ import {
   GuildAndFolderUtils,
   SortedGuildStore,
 } from "../lib/requiredModules";
-const { channels: UltimateChannelStore } = common;
+const { guilds: UltimateGuildStore } = common;
 export default (): void => {
+  PluginInjector.before(
+    ChannelSelectUtils,
+    "selectChannel",
+    (args: [{ guildId: string; lastGuildId?: string }]) => {
+      args[0].lastGuildId = UltimateGuildStore.getLastSelectedGuildId();
+      return args;
+    },
+  );
   PluginInjector.after(
     ChannelSelectUtils,
     "selectChannel",
-    ([{ guildId }]: [{ guildId: string }], res) => {
-      const lastChannelId = UltimateChannelStore.getLastSelectedChannelId();
-      const lastChannel = UltimateChannelStore.getChannel(lastChannelId);
-      if (lastChannel?.guild_id !== guildId) {
+    ([{ guildId, lastGuildId }]: [{ guildId: string; lastGuildId?: string }], res) => {
+      if (lastGuildId !== guildId) {
         const guildFolder = SortedGuildStore.getGuildFolders().find((f) =>
           f.guildIds.includes(guildId),
         );
