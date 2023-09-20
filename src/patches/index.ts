@@ -1,5 +1,6 @@
 import { PluginInjector } from "../index";
 import utils from "../lib/utils";
+import { GuildsNavClasses } from "../lib/requiredModules";
 import patchAppView from "./AppView";
 import patchChannelSelectUtils from "./ChannelSelectUtils";
 import patchFolderIcon from "./FolderIcon";
@@ -19,6 +20,7 @@ export const applyInjections = (): void => {
   void patchGuildFolderSettingsModal();
   patchSidebar();
   patchSortedGuildsStore();
+  void utils.forceRerenderElement(`.${GuildsNavClasses.guilds}`);
 };
 export const removeInjections = (): void => {
   PluginInjector.uninjectAll();

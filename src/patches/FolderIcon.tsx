@@ -1,7 +1,6 @@
 import { PluginInjector } from "../index";
-import { GuildsNav, GuildsNavClasses, SortedGuildStore } from "../lib/requiredModules";
+import { GuildsNav, SortedGuildStore } from "../lib/requiredModules";
 import FolderIcon from "../Components/FolderIcon";
-import utils from "../lib/utils";
 import Types from "../types";
 export default (): void => {
   PluginInjector.before(GuildsNav, "FolderIcon", (args: [{ folderNode: Types.GuildTreeItem }]) => {
@@ -34,5 +33,4 @@ export default (): void => {
       return res;
     },
   );
-  void utils.forceRerenderElement(`.${GuildsNavClasses.guilds}`);
 };

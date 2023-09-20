@@ -35,7 +35,7 @@ export default [
       },
       {
         match:
-          /const\s*(\w+)\s*=\s*\w+\s*\.\s*memo\s*\(\s*\(\s*function\s*\(\s*\w+\s*\)\s*{\s*var[^]*?onContextMenu\s*:\s*\w+\s*}\s*\)\s*\)\s*}\s*\)\s*\)\s*;/,
+          /const\s*(\w+)\s*=\s*\w+\s*\.\s*memo\s*\(\s*\(\s*function\s*\(\s*\w+\s*\)\s*{\s*var\s*\w+\s*=\s*\w+\s*\.\s*folderNode[^]*?onContextMenu\s*:\s*\w+\s*}\s*\)\s*\)\s*}\s*\)\s*\)\s*;/,
         replace:
           `$&replugged.webpack.waitForModule(replugged.webpack.filters.bySource("guildsnav"),{raw:true, timeout: 10000}).then((mod)=>Object.defineProperty(mod.exports,"FolderUnreadPill",{` +
           `get:()=>$1,` +
