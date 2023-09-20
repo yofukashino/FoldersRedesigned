@@ -36,7 +36,7 @@ export const Settings = (): React.ReactElement => {
   const [generalOpen, setGeneralOpen] = React.useState(false);
   const [folderOpen, setFolderOpen] = React.useState(false);
   const [key, setKey] = React.useState(`${generalOpen} ${folderOpen}`);
-  const [selectedGuild, setSelectedGuild] = React.useState("");
+  const [selectedFolder, setSelectedFolder] = React.useState("");
   React.useEffect(() => {
     setKey(`${generalOpen} ${folderOpen}`);
   }, [generalOpen, folderOpen]);
@@ -134,12 +134,12 @@ export const Settings = (): React.ReactElement => {
               label: folderName ?? `Server Folder #${index + 1}`,
               value: folderName ?? `Server Folder #${index + 1}`,
             })),
-            value: selectedGuild,
-            onChange: (e) => setSelectedGuild(e),
+            value: selectedFolder,
+            onChange: (e) => setSelectedFolder(e),
           }}>
           Choose Folder
         </SelectItem>
-        {guildFolderSettingComponents?.find?.((c) => c?.key === selectedGuild)}
+        {guildFolderSettingComponents?.find?.((c) => c?.key === selectedFolder)}
       </Category>
     </div>
   );
