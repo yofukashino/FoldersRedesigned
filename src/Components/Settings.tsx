@@ -134,7 +134,7 @@ export const Settings = (): React.ReactElement => {
         }}>
         <SelectItem
           {...{
-            note: "Select server to manage settings of",
+            note: "Select folder to manage settings of",
             disabled: false,
             options: GuildFolders.map(({ folderName }, index) => ({
               label: folderName ?? `Server Folder #${index + 1}`,
@@ -143,7 +143,7 @@ export const Settings = (): React.ReactElement => {
             value: selectedGuild,
             onChange: (e) => setSelectedGuild(e),
           }}>
-          Choose Server
+          Choose Folder
         </SelectItem>
         {guildFolderSettingComponents?.find?.((c) => c?.key === selectedGuild)}
       </Category>
