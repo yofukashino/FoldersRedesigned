@@ -2,8 +2,8 @@ import { common, components } from "replugged";
 import { PluginLogger, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import { SortedGuildStore } from "../lib/requiredModules";
-const { flux: Flux } = common;
-const { SwitchItem, Category, SliderItem, FormItem } = components;
+const { flux: Flux, React } = common;
+const { SwitchItem, Category, SliderItem, FormItem, SelectItem } = components;
 import utils from "../lib/utils";
 import Types from "../types";
 import FolderSettings from "./FolderSettings";
@@ -19,9 +19,45 @@ export const Settings = (): React.ReactElement => {
   const GuildFolders = Flux.useStateFromStores([SortedGuildStore], () =>
     SortedGuildStore.getGuildFolders().filter((f) => f.folderId),
   );
+  const [guildFolderSettingComponents, setGuildFolderSettingComponents] = React.useState<
+    React.ReactElement[] | null
+  >(null);
+  const [generalOpen, setGeneralOpen] = React.useState(false);
+  const [folderOpen, setFolderOpen] = React.useState(false);
+  const [key, setKey] = React.useState(`${generalOpen} ${folderOpen}`);
+  const [selectedGuild, setSelectedGuild] = React.useState("");
+  React.useEffect(() => {
+    setKey(`${generalOpen} ${folderOpen}`);
+  }, [generalOpen, folderOpen]);
+
+  React.useEffect(() => {
+    const components = GuildFolders.map(({ folderId, folderName }, index) => (
+      <FormItem
+        {...{
+          key: folderName ?? `Server Folder #${index + 1}`,
+          divider: true,
+          style: {
+            marginBottom: "6px",
+          },
+        }}>
+        <FolderSettings
+          {...{ folderId, key: `${SettingValues.get("sidebar", defaultSettings.sidebar)}` }}
+        />
+      </FormItem>
+    ));
+    setGuildFolderSettingComponents(components);
+  }, [GuildFolders]);
   return (
-    <div>
-      <Category {...{ title: "General Settings", open: false }}>
+    <div {...{ key }}>
+      <Category
+        {...{
+          title: "General Settings",
+          open: generalOpen,
+          onChange: () => {
+            setGeneralOpen((prev) => !prev);
+            setFolderOpen(false);
+          },
+        }}>
         <SwitchItem
           {...{
             ...utils.useSetting(SettingValues, "sidebar", defaultSettings.sidebar),
@@ -89,23 +125,27 @@ export const Settings = (): React.ReactElement => {
       <Category
         {...{
           title: "Folder Settings",
-          open: false,
+          open: folderOpen,
+          onChange: () => {
+            setFolderOpen((prev) => !prev);
+            setGeneralOpen(false);
+          },
           key: `${SettingValues.get("sidebar", defaultSettings.sidebar)}`,
         }}>
-        {GuildFolders.map(({ folderId, folderName }, index) => (
-          <FormItem
-            {...{
-              title: folderName ?? `Server Folder #${index + 1}`,
-              divider: true,
-              style: {
-                marginBottom: "6px",
-              },
-            }}>
-            <FolderSettings
-              {...{ folderId, key: `${SettingValues.get("sidebar", defaultSettings.sidebar)}` }}
-            />
-          </FormItem>
-        ))}
+        <SelectItem
+          {...{
+            note: "Select server to manage settings of",
+            disabled: false,
+            options: GuildFolders.map(({ folderName }, index) => ({
+              label: folderName ?? `Server Folder #${index + 1}`,
+              value: folderName ?? `Server Folder #${index + 1}`,
+            })),
+            value: selectedGuild,
+            onChange: (e) => setSelectedGuild(e),
+          }}>
+          Choose Server
+        </SelectItem>
+        {guildFolderSettingComponents?.find?.((c) => c?.key === selectedGuild)}
       </Category>
     </div>
   );
