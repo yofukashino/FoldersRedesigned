@@ -1,17 +1,21 @@
 import { PluginInjector } from "../index";
-import { GuildsNav, SortedGuildStore } from "../lib/requiredModules";
+import { FolderConstructor, SortedGuildStore } from "../lib/requiredModules";
 import FolderIcon from "../Components/FolderIcon";
 import Types from "../types";
 export default (): void => {
-  PluginInjector.before(GuildsNav, "FolderIcon", (args: [{ folderNode: Types.GuildTreeItem }]) => {
-    args[0].folderNode = (
-      SortedGuildStore.getGuildsTree({ original: true }) as Types.GuildsTree
-    ).nodes[args[0].folderNode.id];
-    return args;
-  });
+  PluginInjector.before(
+    FolderConstructor,
+    "default",
+    (args: [{ folderNode: Types.GuildTreeItem }]) => {
+      args[0].folderNode = SortedGuildStore.getGuildsTree({ original: true }).nodes[
+        args[0].folderNode.id
+      ];
+      return args;
+    },
+  );
   PluginInjector.after(
-    GuildsNav,
-    "FolderIcon",
+    FolderConstructor,
+    "default",
     (
       [
         {
@@ -21,12 +25,12 @@ export default (): void => {
       ]: [{ expanded: boolean; folderNode: { id: string } }],
       res,
     ) => {
-      res.props.children = (
+      res.props.children.props.children = (
         <FolderIcon
           {...{
             expanded,
             folderId: id,
-            originalChildren: res.props.children,
+            originalChildren: res.props.children.props.children,
           }}
         />
       );

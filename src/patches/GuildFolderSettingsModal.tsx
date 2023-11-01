@@ -10,10 +10,13 @@ export default async (): Promise<void> => {
     "render",
     (
       _args,
-      res: React.ReactElement,
+      res: React.ReactElement & Types.Tree,
       { props: { folderId } }: Types.DefaultTypes.ObjectExports & { props: { folderId: string } },
     ) => {
-      const container = utils.findInReactTree(res, (c) => c?.type === "form") as React.ReactElement;
+      const container = utils.findInReactTree(
+        res,
+        (c) => c?.type === "form",
+      ) as React.ReactElement & Types.Tree;
       if (container?.props?.children.some((c) => c?.type?.toString()?.includes("folderData."))) {
         return res;
       }

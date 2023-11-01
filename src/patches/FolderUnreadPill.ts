@@ -1,24 +1,25 @@
 import { PluginInjector } from "../index";
-import { GuildsNav, SortedGuildStore } from "../lib/requiredModules";
+import { FolderUnreadPillConstructor, SortedGuildStore } from "../lib/requiredModules";
 import Types from "../types";
 export default (): void => {
   PluginInjector.before(
-    GuildsNav.FolderUnreadPill,
+    FolderUnreadPillConstructor,
     "type",
     (args: [{ folderNode: Types.GuildTreeItem }]) => {
-      args[0].folderNode = (
-        SortedGuildStore.getGuildsTree({ original: true }) as Types.GuildsTree
-      ).nodes[args[0].folderNode?.id];
+      args[0].folderNode = SortedGuildStore.getGuildsTree({ original: true }).nodes[
+        args[0].folderNode?.id
+      ];
       return args;
     },
   );
   PluginInjector.after(
-    GuildsNav.FolderUnreadPill,
+    FolderUnreadPillConstructor,
     "type",
-    ([{ folderNode }]: [{ expanded: boolean; folderNode: { id: string } }], res) => {
-      res.props.folderNode = (SortedGuildStore.getGuildsTree() as Types.GuildsTree).nodes[
-        folderNode?.id
-      ];
+    (
+      [{ folderNode }]: [{ expanded: boolean; folderNode: { id: string } }],
+      res: React.ReactElement,
+    ) => {
+      res.props.folderNode = SortedGuildStore.getGuildsTree().nodes[folderNode?.id];
       return res;
     },
   );

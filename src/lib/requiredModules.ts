@@ -1,12 +1,6 @@
 import { webpack } from "replugged";
 import Types from "../types";
-export const { exports: GuildsNav } = webpack.getBySource<Types.GenericMemo>("guildsnav", {
-  raw: true,
-});
-export const SidebarContainer = {
-  Sidebar: webpack.getBySource("guildsnav", { raw: true }).exports
-    .Sidebar as Types.DefaultTypes.AnyFunction,
-};
+export const { exports: GuildsNav } = webpack.getBySource("guildsnav", { raw: true });
 export const GuildsNavClasses = webpack.getByProps<Types.GuildsNavClasses>("guilds", "sidebar");
 export const GuildFolderSettingsModalPromise =
   webpack.waitForModule<Types.DefaultTypes.AnyFunction>(
@@ -16,21 +10,18 @@ export const ExpandedGuildFolderStore = webpack.getByStoreName<Types.ExpandedGui
   "ExpandedGuildFolderStore",
 );
 export const SortedGuildStore = webpack.getByStoreName<Types.SortedGuildStore>("SortedGuildStore");
-export const GuildTreeModule = webpack.getBySource("sortedGuildNodes=");
-export const GuildTreeConstructors = {
-  GuildTreeGuild: webpack.getFunctionBySource<(...args: unknown[]) => void>(
-    GuildTreeModule,
-    "GUILD",
-  ),
-  GuildTreeRoot: webpack.getFunctionBySource<(...args: unknown[]) => void>(GuildTreeModule, "ROOT"),
-  GuildTreeFolder: webpack.getFunctionBySource<(...args: unknown[]) => void>(
-    GuildTreeModule,
-    "FOLDER",
-  ),
-};
-export const { exports: AppView } = webpack.getBySource<{
-  exports: { BaseLayer: Types.GenericMemo };
-}>("isCopiedStreakGodlike", { raw: true });
+export const { exports: GuildTreeConstructors } = webpack.getByProps(
+  ["GuildsTree", "createFolderNode"],
+  { raw: true },
+);
+export const { exports: FolderConstructor } = webpack.getBySource(
+  ".Messages.GUILD_FOLDER_TOOLTIP_A11Y_LABEL",
+  { raw: true },
+);
+
+export const FolderUnreadPillConstructor = webpack.getBySource<Types.GenericMemo>(
+  ".MAX_GUILD_FOLDER_NAME_LENGTH",
+);
 export const Animations = webpack.getByProps<Types.Animations>(["Transition", "animated"]);
 export const ChannelSelectUtils = webpack.getByProps<Types.ChannelSelectUtils>(
   "selectChannel",

@@ -1,7 +1,5 @@
 import { PluginInjector } from "../index";
-import utils from "../lib/utils";
 import { GuildsNavClasses } from "../lib/requiredModules";
-import patchAppView from "./AppView";
 import patchChannelSelectUtils from "./ChannelSelectUtils";
 import patchFolderIcon from "./FolderIcon";
 import patchFolderUnreadPill from "./FolderUnreadPill";
@@ -10,19 +8,19 @@ import patchGuildFolderSettingsModal from "./GuildFolderSettingsModal";
 import patchSettingValues from "./SettingValues";
 import patchSidebar from "./Sidebar";
 import patchSortedGuildsStore from "./SortedGuildsStore";
+import Utils from "../lib/utils";
 export const applyInjections = (): void => {
-  patchAppView();
   patchChannelSelectUtils();
   patchFolderIcon();
   patchFolderUnreadPill();
   patchGuildAndFolderUtils();
   patchSettingValues();
   void patchGuildFolderSettingsModal();
-  patchSidebar();
+  void patchSidebar();
   patchSortedGuildsStore();
-  void utils.forceRerenderElement(`.${GuildsNavClasses.guilds}`);
+  void Utils.forceRerenderElement(`.${GuildsNavClasses.guilds}`);
 };
 export const removeInjections = (): void => {
   PluginInjector.uninjectAll();
-  void utils.forceRerenderElement(`.${GuildsNavClasses.guilds}`);
+  void Utils.forceRerenderElement(`.${GuildsNavClasses.guilds}`);
 };

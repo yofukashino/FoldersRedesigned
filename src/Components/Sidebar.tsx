@@ -4,8 +4,8 @@ import { defaultSettings } from "../lib/consts";
 import {
   Animations,
   ExpandedGuildFolderStore,
+  GuildsNav,
   GuildsNavClasses,
-  SidebarContainer,
   SortedGuildStore,
 } from "../lib/requiredModules";
 const { React, flux: Flux } = common;
@@ -22,8 +22,8 @@ export default React.memo(() => {
         .filter(Boolean);
     },
   );
-  const hide = !SettingValues.get("sidebar", false) || !expandedFolders.length;
-  const { Sidebar } = SidebarContainer as { Sidebar: React.ComponentType<{ className: string }> };
+  const hide =
+    !SettingValues.get("sidebar", false) || !expandedFolders.length || !GuildsNav.Sidebar;
   const GuildNavElement = document.querySelector(`.${GuildsNavClasses.guilds}`);
   if (
     !SettingValues.get("sidebarAnimation", defaultSettings.sidebarAnimation) ||
@@ -36,7 +36,7 @@ export default React.memo(() => {
           className: "foldersRedesigned-sidebar",
         }}>
         {hide ? null : (
-          <Sidebar
+          <GuildsNav.Sidebar
             {...{
               className: `${GuildsNavClasses.guilds} foldersRedesigned-sidebar`,
             }}
@@ -64,7 +64,7 @@ export default React.memo(() => {
               style,
               className: "foldersRedesigned-sidebar",
             }}>
-            <Sidebar
+            <GuildsNav.Sidebar
               {...{
                 className: `${GuildsNavClasses.guilds} foldersRedesigned-sidebar`,
                 style,

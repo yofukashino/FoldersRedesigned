@@ -21,7 +21,7 @@ export default (): void => {
         return res;
       }
 
-      const ret: Types.GuildsTree = new GuildTreeConstructors.GuildTreeRoot();
+      const ret: Types.GuildsTree = new GuildTreeConstructors.GuildsTree();
       const expandedFolders = Array.from(
         ExpandedGuildFolderStore.getExpandedFolders() as Set<string>,
       );

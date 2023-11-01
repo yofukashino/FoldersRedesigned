@@ -18,3 +18,5 @@ export const stop = (): void => {
 };
 
 export { Settings } from "./Components/Settings.jsx";
+
+export { _renderCustomSidebar, _assignSidebar } from "./plaintextFunctions";

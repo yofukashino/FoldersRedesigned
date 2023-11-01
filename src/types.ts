@@ -1,6 +1,7 @@
 import { types as DefaultTypes } from "replugged";
 import type { Store } from "replugged/dist/renderer/modules/common/flux";
 import ReactSpring from "react-spring";
+export { Tree } from "replugged/dist/renderer/util";
 export { types as DefaultTypes } from "replugged";
 
 export interface GenericModule extends Record<string, DefaultTypes.AnyFunction> {}
@@ -9,15 +10,6 @@ export interface GenericMemo {
   $$typeof: symbol;
   compare: DefaultTypes.AnyFunction;
   type: DefaultTypes.AnyFunction;
-}
-
-export interface AppViewClasses {
-  allowsScrolling: string;
-  app: string;
-  appAsidePanelWrapper: string;
-  mobileApp: string;
-  mobileAppAsidePanelWrapper: string;
-  notAppAsidePanel: string;
 }
 
 export interface GuildsNavClasses {
@@ -84,7 +76,7 @@ export interface SortedGuildStore extends Store {
   getFlattenedGuildIds: DefaultTypes.AnyFunction;
   getGuildFolderById: DefaultTypes.AnyFunction;
   getGuildFolders: () => GuildFolder[];
-  getGuildsTree: DefaultTypes.AnyFunction;
+  getGuildsTree: (e?: { custom?: boolean; original?: boolean }) => GuildsTree;
   takeSnapshot: DefaultTypes.AnyFunction;
 }
 
