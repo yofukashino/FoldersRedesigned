@@ -101,7 +101,7 @@ export default ({
                 </Button>
                 <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
                   Change Icon
-                  <ImageInput
+                  <ImageInput.default
                     {...{
                       onChange: (img: string) => {
                         setClosedState(img);
@@ -113,7 +113,7 @@ export default ({
             ) : (
               <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
                 Add Icon
-                <ImageInput
+                <ImageInput.default
                   {...{
                     onChange: (img: string) => {
                       setClosedState(img);
@@ -169,7 +169,7 @@ export default ({
                 </Button>
                 <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
                   Change Icon
-                  <ImageInput
+                  <ImageInput.default
                     {...{
                       onChange: (img: string) => {
                         setOpenState(img);
@@ -181,7 +181,7 @@ export default ({
             ) : (
               <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
                 Add Icon
-                <ImageInput
+                <ImageInput.default
                   {...{
                     onChange: (img: string) => {
                       setOpenState(img);
