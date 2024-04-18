@@ -1,8 +1,10 @@
 import { PluginInjector } from "../index";
-import { FolderConstructor, SortedGuildStore } from "../lib/requiredModules";
+import Modules from "../lib/requiredModules";
 import FolderIcon from "../Components/FolderIcon";
 import Types from "../types";
+
 export default (): void => {
+  const { FolderConstructor, SortedGuildStore } = Modules;
   PluginInjector.before(
     FolderConstructor,
     "default",
@@ -23,15 +25,13 @@ export default (): void => {
           folderNode: { id },
         },
       ]: [{ expanded: boolean; folderNode: { id: string } }],
-      res,
+      res: React.ReactElement,
     ) => {
       res.props.children.props.children = (
         <FolderIcon
-          {...{
-            expanded,
-            folderId: id,
-            originalChildren: res.props.children.props.children,
-          }}
+          expanded={expanded}
+          folderId={id}
+          originalChildren={res.props.children.props.children}
         />
       );
       return res;

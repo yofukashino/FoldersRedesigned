@@ -1,7 +1,9 @@
 import { PluginInjector } from "../index";
-import { FolderUnreadPillConstructor, SortedGuildStore } from "../lib/requiredModules";
+import Modules from "../lib/requiredModules";
 import Types from "../types";
+
 export default (): void => {
+  const { FolderUnreadPillConstructor, SortedGuildStore } = Modules;
   PluginInjector.before(
     FolderUnreadPillConstructor,
     "type",

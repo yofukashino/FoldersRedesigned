@@ -1,37 +1,47 @@
 import { webpack } from "replugged";
 import Types from "../types";
-export const { exports: GuildsNav } = webpack.getBySource("guildsnav", { raw: true });
-export const GuildsNavClasses = webpack.getByProps<Types.GuildsNavClasses>("guilds", "sidebar");
-export const GuildFolderSettingsModalPromise =
-  webpack.waitForModule<Types.DefaultTypes.AnyFunction>(
+const Modules: Types.Modules = {
+  Sidebar: null,
+};
+Modules.loadModules = async () => {
+  Modules.ExpandedGuildFolderStore ??= webpack.getByStoreName<Types.ExpandedGuildFolderStore>(
+    "ExpandedGuildFolderStore",
+  );
+  Modules.SortedGuildStore ??= webpack.getByStoreName<Types.SortedGuildStore>("SortedGuildStore");
+  Modules.GuildsNavClasses ??= await webpack.waitForProps<Types.GuildsNavClasses>(
+    "guilds",
+    "sidebar",
+  );
+  Modules.GuildFolderSettingsModalPromise = webpack.waitForModule<Types.DefaultTypes.AnyFunction>(
     webpack.filters.bySource("handleColorChange"),
   );
-export const ExpandedGuildFolderStore = webpack.getByStoreName<Types.ExpandedGuildFolderStore>(
-  "ExpandedGuildFolderStore",
-);
-export const SortedGuildStore = webpack.getByStoreName<Types.SortedGuildStore>("SortedGuildStore");
-export const { exports: GuildTreeConstructors } = webpack.getByProps(
-  ["GuildsTree", "createFolderNode"],
-  { raw: true },
-);
-export const { exports: FolderConstructor } = webpack.getBySource(
-  ".Messages.GUILD_FOLDER_TOOLTIP_A11Y_LABEL",
-  { raw: true },
-);
 
-export const FolderUnreadPillConstructor = webpack.getBySource<Types.GenericMemo>(
-  ".MAX_GUILD_FOLDER_NAME_LENGTH",
-);
-export const Animations = webpack.getByProps<Types.Animations>(["Transition", "animated"]);
-export const ChannelSelectUtils = webpack.getByProps<Types.ChannelSelectUtils>(
-  "selectChannel",
-  "selectPrivateChannel",
-);
-export const GuildAndFolderUtils = webpack.getByProps<Types.GuildAndFolderUtils>([
-  "toggleGuildFolderExpand",
-  "toggleGuildFolderExpand",
-]);
-export const ImageInput = webpack.getByProps<{
-  default: React.ComponentClass<{ onChange: (...args: unknown[]) => void }>;
-  processImage: Types.DefaultTypes.AnyFunction;
-}>("processImage");
+  Modules.GuildTreeConstructors ??= await webpack
+    .waitForProps(["GuildsTree", "createFolderNode"], { raw: true })
+    .then(({ exports }) => exports);
+  Modules.FolderConstructor ??= await webpack
+    .waitForModule(webpack.filters.bySource(".Messages.GUILD_FOLDER_TOOLTIP_A11Y_LABEL"), {
+      raw: true,
+    })
+    .then(({ exports }) => exports);
+
+  Modules.FolderUnreadPillConstructor ??= await webpack.waitForModule<Types.GenericMemo>(
+    webpack.filters.bySource(".MAX_GUILD_FOLDER_NAME_LENGTH"),
+  );
+
+  Modules.Animations ??= await webpack.waitForProps<Types.Animations>(["Transition", "animated"]);
+  Modules.ChannelSelectUtils ??= await webpack.waitForProps<Types.ChannelSelectUtils>(
+    "selectChannel",
+    "selectPrivateChannel",
+  );
+  Modules.GuildAndFolderUtils ??= await webpack.waitForProps<Types.GuildAndFolderUtils>([
+    "toggleGuildFolderExpand",
+    "toggleGuildFolderExpand",
+  ]);
+  Modules.ImageInput ??= await webpack.waitForProps<{
+    default: React.ComponentClass<{ onChange: (...args: unknown[]) => void }>;
+    processImage: Types.DefaultTypes.AnyFunction;
+  }>("processImage");
+};
+
+export default Modules;

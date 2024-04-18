@@ -1,6 +1,7 @@
 export const defaultSettings = {
   folderData: {},
   sidebar: false,
+  folderInSidebar: true,
   sidebarBlacklist: {},
   sidebarAnimation: true,
   sidebarAnimationMs: 200,

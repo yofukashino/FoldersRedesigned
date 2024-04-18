@@ -1,9 +1,8 @@
-import { components } from "replugged";
+import { Button, Flex, SwitchItem, Text } from "replugged/components";
 import { SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
-import { ImageInput } from "../lib/requiredModules";
-const { SwitchItem, Flex, Button, Text } = components;
-import utils from "../lib/utils";
+import Modules from "../lib/requiredModules";
+import Utils from "../lib/utils";
 
 export default ({
   folderId,
@@ -11,181 +10,147 @@ export default ({
 }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   folderId: string;
 }): React.ReactElement => {
-  const { value: iconType, onChange: setIconType } = utils.useSetting(
+  const [iconType, setIconType] = Utils.useSettingArray(
     SettingValues,
     `folderData.${folderId}.iconType`,
     "default",
   );
-  const { value: closedstate, onChange: setClosedState } = utils.useSetting(
+  const [closedstate, setClosedState] = Utils.useSettingArray(
     SettingValues,
     `folderData.${folderId}.closedIcon`,
     "",
   );
-  const { value: openstate, onChange: setOpenState } = utils.useSetting(
+  const [openstate, setOpenState] = Utils.useSettingArray(
     SettingValues,
     `folderData.${folderId}.openIcon`,
     "",
   );
-  return (
+  return Modules.ImageInput ? (
     <div {...props}>
       {SettingValues.get("sidebar", defaultSettings.sidebar) && (
         <SwitchItem
-          {...{
-            ...utils.useSetting(SettingValues, `sidebarBlacklist.${folderId}`, false as boolean),
-            note: "If you would like to blacklist the folder from appearing in the seperate sidebar.",
-          }}>
+          {...Utils.useSetting(SettingValues, `sidebarBlacklist.${folderId}`, false as boolean)}
+          note="If you would like to blacklist the folder from appearing in the seperate sidebar.">
           Sidebar Blacklist
         </SwitchItem>
       )}
       <SwitchItem
-        {...{
-          value: iconType === "custom",
-          onChange: (e) => (e ? setIconType("custom") : setIconType("default")),
-          note: "If you would like to use custom icons for this folder.",
-        }}>
+        value={iconType === "custom"}
+        onChange={(e) => (e ? setIconType("custom") : setIconType("default"))}
+        note="If you would like to use custom icons for this folder.">
         Custom Icons
       </SwitchItem>
       {iconType === "custom" ? (
         <Flex
-          {...{
-            align: Flex.Align.CENTER,
-            style: {
-              marginTop: "6px",
-              gap: "6px",
-              minWidth: "550px",
-            },
+          align={Flex.Align.CENTER}
+          style={{
+            marginTop: "6px",
+            gap: "6px",
+            minWidth: "550px",
           }}>
           <Flex
-            {...{
-              align: Flex.Align.CENTER,
-              direction: Flex.Direction.VERTICAL,
-              style: {
-                gap: "6px",
-              },
+            align={Flex.Align.CENTER}
+            direction={Flex.Direction.VERTICAL}
+            style={{
+              gap: "6px",
             }}>
             <Text.Eyebrow>Closed Icon</Text.Eyebrow>
             {closedstate ? (
               <div
-                {...{
-                  key: closedstate,
+                key={closedstate}
+                style={{
+                  backgroundImage: `url(${closedstate})`,
                   width: "152px",
                   height: "152px",
-                  style: {
-                    backgroundImage: `url(${closedstate})`,
-                    width: "152px",
-                    height: "152px",
-                    borderRadius: "10px",
-                    backgroundSize: "contain",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                  },
+                  borderRadius: "10px",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
                 }}
               />
             ) : null}
             {closedstate ? (
               <Flex
-                {...{
-                  align: Flex.Align.CENTER,
-                  style: {
-                    marginTop: "6px",
-                    gap: "6px",
-                  },
+                align={Flex.Align.CENTER}
+                style={{
+                  marginTop: "6px",
+                  gap: "6px",
                 }}>
                 <Button
-                  {...{
-                    color: Button.Colors.WHITE,
-                    look: Button.Looks.OUTLINED,
-                    onClick: () => setClosedState(""),
-                  }}>
+                  color={Button.Colors.WHITE}
+                  look={Button.Looks.OUTLINED}
+                  onClick={() => setClosedState("")}>
                   Remove Icon
                 </Button>
-                <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
+                <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                   Change Icon
-                  <ImageInput.default
-                    {...{
-                      onChange: (img: string) => {
-                        setClosedState(img);
-                      },
+                  <Modules.ImageInput.default
+                    onChange={(img: string) => {
+                      setClosedState(img);
                     }}
                   />
                 </Button>
               </Flex>
             ) : (
-              <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
+              <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                 Add Icon
-                <ImageInput.default
-                  {...{
-                    onChange: (img: string) => {
-                      setClosedState(img);
-                    },
+                <Modules.ImageInput.default
+                  onChange={(img: string) => {
+                    setClosedState(img);
                   }}
                 />
               </Button>
             )}
           </Flex>
           <Flex
-            {...{
-              align: Flex.Align.CENTER,
-              direction: Flex.Direction.VERTICAL,
-              style: {
-                gap: "6px",
-              },
+            align={Flex.Align.CENTER}
+            direction={Flex.Direction.VERTICAL}
+            style={{
+              gap: "6px",
             }}>
             <Text.Eyebrow>Open Icon</Text.Eyebrow>
             {openstate ? (
               <div
-                {...{
-                  key: openstate,
+                key={openstate}
+                style={{
+                  backgroundImage: `url(${openstate})`,
                   width: "152px",
                   height: "152px",
-                  style: {
-                    backgroundImage: `url(${openstate})`,
-                    width: "152px",
-                    height: "152px",
-                    borderRadius: "10px",
-                    backgroundSize: "contain",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                  },
+                  borderRadius: "10px",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
                 }}
               />
             ) : null}
             {openstate ? (
               <Flex
-                {...{
-                  align: Flex.Align.CENTER,
-                  style: {
-                    marginTop: "6px",
-                    gap: "6px",
-                  },
+                align={Flex.Align.CENTER}
+                style={{
+                  marginTop: "6px",
+                  gap: "6px",
                 }}>
                 <Button
-                  {...{
-                    color: Button.Colors.WHITE,
-                    look: Button.Looks.OUTLINED,
-                    onClick: () => setOpenState(""),
-                  }}>
+                  color={Button.Colors.WHITE}
+                  look={Button.Looks.OUTLINED}
+                  onClick={() => setOpenState("")}>
                   Remove Icon
                 </Button>
-                <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
+                <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                   Change Icon
-                  <ImageInput.default
-                    {...{
-                      onChange: (img: string) => {
-                        setOpenState(img);
-                      },
+                  <Modules.ImageInput.default
+                    onChange={(img: string) => {
+                      setOpenState(img);
                     }}
                   />
                 </Button>
               </Flex>
             ) : (
-              <Button {...{ color: Button.Colors.WHITE, look: Button.Looks.OUTLINED }}>
+              <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                 Add Icon
-                <ImageInput.default
-                  {...{
-                    onChange: (img: string) => {
-                      setOpenState(img);
-                    },
+                <Modules.ImageInput.default
+                  onChange={(img: string) => {
+                    setOpenState(img);
                   }}
                 />
               </Button>
@@ -194,5 +159,5 @@ export default ({
         </Flex>
       ) : null}
     </div>
-  );
+  ) : null;
 };

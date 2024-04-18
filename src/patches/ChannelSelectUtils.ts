@@ -1,14 +1,10 @@
-import { common } from "replugged";
+import { guilds as UltimateGuildStore } from "replugged/common";
 import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
-import {
-  ChannelSelectUtils,
-  ExpandedGuildFolderStore,
-  GuildAndFolderUtils,
-  SortedGuildStore,
-} from "../lib/requiredModules";
-const { guilds: UltimateGuildStore } = common;
+import Modules from "../lib/requiredModules";
 export default (): void => {
+  const { ChannelSelectUtils, ExpandedGuildFolderStore, GuildAndFolderUtils, SortedGuildStore } =
+    Modules;
   PluginInjector.before(
     ChannelSelectUtils,
     "selectChannel",

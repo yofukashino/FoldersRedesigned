@@ -12,5 +12,10 @@ div:has(> .foldersRedesigned-folderIcon) {
 }
 
 .foldersRedesigned-sidebar {
+  max-width: 72px;
   display: flex;
+}
+
+.foldersRedesigned-sidebar [class*="unreadMentionsBar"] {
+  display: none;
 }

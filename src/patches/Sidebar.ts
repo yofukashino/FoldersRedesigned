@@ -1,25 +1,24 @@
-import { common } from "replugged";
+import { i18n } from "replugged/common";
 import { PluginInjector } from "../index";
-import { GuildsNav } from "../lib/requiredModules";
-import { assignedSidebar } from "../plaintextFunctions";
-import utils from "../lib/utils";
+import Modules from "../lib/requiredModules";
+import Utils from "../lib/utils";
 import Types from "../types";
-const { i18n } = common;
+
 export default async (): Promise<void> => {
-  await assignedSidebar;
+  await Utils.waitForProps(Modules, "Sidebar");
   PluginInjector.after(
-    GuildsNav,
+    Modules,
     "Sidebar",
     ([{ className }]: [{ className: string }], res: React.ReactElement & Types.Tree) => {
       if (!className.includes("foldersRedesigned-sidebar")) return res;
-      const scroller = utils.findInReactTree(
+      const scroller = Utils.findInReactTree(
         res,
         (c: React.ReactElement & Types.Tree) =>
           typeof c?.props?.onScroll === "function" &&
           c?.props?.children.some((i) => i?.props?.["aria-label"] === i18n.Messages.SERVERS),
         100,
       ) as React.ReactElement & Types.Tree;
-      const servers = utils.findInReactTree(
+      const servers = Utils.findInReactTree(
         scroller,
         (c: React.ReactElement & Types.Tree) => c?.props?.["aria-label"] === i18n.Messages.SERVERS,
         100,
@@ -31,4 +30,5 @@ export default async (): Promise<void> => {
       return res;
     },
   );
+  void Utils.forceRerenderElement(`.${Modules.GuildsNavClasses?.guilds}`);
 };

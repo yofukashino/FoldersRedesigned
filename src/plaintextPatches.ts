@@ -1,11 +1,11 @@
-import * as Types from "./types";
+import Types from "./types";
 export default [
   {
     find: "guildsnav",
     replacements: [
       {
         match: /themeOverride:\w+/,
-        replace: (suffix) => `className,${suffix}`,
+        replace: (suffix: string) => `className,${suffix},`,
       },
       {
         match: "getGuildsTree()",

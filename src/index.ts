@@ -6,17 +6,18 @@ export const PluginInjector = new Injector();
 export const PluginLogger = Logger.plugin("FoldersRedesigned");
 export const SettingValues = await settings.init("dev.tharki.FoldersRedesigned", defaultSettings);
 
-import { applyInjections, removeInjections } from "./patches";
+import Injections from "./patches";
 
 export const start = (): void => {
   registerSettings();
-  applyInjections();
+  void Injections.applyInjections();
 };
 
 export const stop = (): void => {
-  removeInjections();
+  Injections.removeInjections();
 };
+export { default as Modules } from "./lib/requiredModules";
 
-export { Settings } from "./Components/Settings.jsx";
+export { Settings } from "./Components/Settings";
 
 export { _renderCustomSidebar, _assignSidebar } from "./plaintextFunctions";

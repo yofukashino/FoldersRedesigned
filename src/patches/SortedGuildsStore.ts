@@ -1,15 +1,11 @@
-import { common } from "replugged";
+import { lodash } from "replugged/common";
 import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
-import {
-  ExpandedGuildFolderStore,
-  GuildTreeConstructors,
-  SortedGuildStore,
-} from "../lib/requiredModules";
+import Modules from "../lib/requiredModules";
 import Types from "../types";
 
-const { lodash } = common;
 export default (): void => {
+  const { ExpandedGuildFolderStore, GuildTreeConstructors, SortedGuildStore } = Modules;
   PluginInjector.after(
     SortedGuildStore,
     "getGuildsTree",
@@ -68,7 +64,14 @@ export default (): void => {
               (id) =>
                 !SettingValues.get("sidebarBlacklist", defaultSettings.sidebarBlacklist)?.[id],
             )
-            .map((id) => res?.root?.children?.find?.((c) => c?.id == id)?.children)
+            .map((id) =>
+              SettingValues.get("folderInSidebar", defaultSettings.folderInSidebar)
+                ? [
+                    res?.root?.children?.find?.((c) => c?.id == id),
+                    ...(res?.root?.children?.find?.((c) => c?.id == id)?.children ?? []),
+                  ]
+                : res?.root?.children?.find?.((c) => c?.id == id)?.children,
+            )
             ?.flat(1)
             .filter(Boolean) ?? res.root.children
         : ret.root.children;

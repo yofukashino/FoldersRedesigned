@@ -1,10 +1,11 @@
 import { PluginInjector } from "../index";
-import { GuildFolderSettingsModalPromise } from "../lib/requiredModules";
+import Modules from "../lib/requiredModules";
 import FolderSettings from "../Components/FolderSettings";
 import utils from "../lib/utils";
 import Types from "../types";
+
 export default async (): Promise<void> => {
-  const GuildFolderSettingsModal = await GuildFolderSettingsModalPromise;
+  const GuildFolderSettingsModal = await Modules.GuildFolderSettingsModalPromise;
   PluginInjector.after(
     GuildFolderSettingsModal.prototype,
     "render",
@@ -22,11 +23,9 @@ export default async (): Promise<void> => {
       }
       container?.props?.children?.push?.(
         <FolderSettings
-          {...{
-            folderId,
-            style: {
-              marginBottom: "10px",
-            },
+          folderId={folderId}
+          style={{
+            marginBottom: "10px",
           }}
         />,
       );

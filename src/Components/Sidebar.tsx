@@ -1,78 +1,74 @@
-import { common } from "replugged";
+import { plugins } from "replugged";
+import { flux as Flux, React } from "replugged/common";
 import { SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
-import {
-  Animations,
-  ExpandedGuildFolderStore,
-  GuildsNav,
-  GuildsNavClasses,
-  SortedGuildStore,
-} from "../lib/requiredModules";
-const { React, flux: Flux } = common;
+import Modules from "../lib/requiredModules";
 
 export default React.memo(() => {
-  const expandedFolders = Flux.useStateFromStores(
-    [ExpandedGuildFolderStore, SortedGuildStore],
-    () => {
-      return Array.from(ExpandedGuildFolderStore.getExpandedFolders() as Set<string>)
-        .filter(
-          (id) => !SettingValues.get("sidebarBlacklist", defaultSettings.sidebarBlacklist)?.[id],
-        )
-        .filter((id) => SortedGuildStore.getGuildFolders().find((f) => f.folderId === id))
-        .filter(Boolean);
-    },
-  );
+  const { Animations, ExpandedGuildFolderStore, GuildsNavClasses, SortedGuildStore } = Modules;
+  const loadedModules =
+    Animations &&
+    ExpandedGuildFolderStore &&
+    GuildsNavClasses &&
+    SortedGuildStore &&
+    Modules.Sidebar;
+  const expandedFolders = loadedModules
+    ? Flux.useStateFromStores([ExpandedGuildFolderStore, SortedGuildStore], () => {
+        return (
+          ExpandedGuildFolderStore &&
+          Array.from(ExpandedGuildFolderStore?.getExpandedFolders() as Set<string>)
+            .filter(
+              (id) =>
+                !SettingValues.get("sidebarBlacklist", defaultSettings.sidebarBlacklist)?.[id],
+            )
+            .filter((id) => SortedGuildStore?.getGuildFolders().find((f) => f.folderId === id))
+            .filter(Boolean)
+        );
+      })
+    : [];
   const hide =
-    !SettingValues.get("sidebar", false) || !expandedFolders.length || !GuildsNav.Sidebar;
-  const GuildNavElement = document.querySelector(`.${GuildsNavClasses.guilds}`);
+    !SettingValues.get("sidebar", false) ||
+    !expandedFolders.length ||
+    plugins.getDisabled()?.includes("dev.tharki.FoldersRedesigned");
+  const GuildNavElement = document.querySelector(`.${GuildsNavClasses?.guilds}`);
   if (
     !SettingValues.get("sidebarAnimation", defaultSettings.sidebarAnimation) ||
     !GuildNavElement
   ) {
     return (
-      <div
-        {...{
-          key: `${hide}`,
-          className: "foldersRedesigned-sidebar",
-        }}>
-        {hide ? null : (
-          <GuildsNav.Sidebar
-            {...{
-              className: `${GuildsNavClasses.guilds} foldersRedesigned-sidebar`,
-            }}
-          />
-        )}
-      </div>
+      loadedModules && (
+        <div key={`${hide}`} className="foldersRedesigned-sidebar">
+          {hide ? null : (
+            <Modules.Sidebar className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`} />
+          )}
+        </div>
+      )
     );
   }
   return (
-    <Animations.Transition
-      {...{
-        items: !hide,
-        from: { width: 0 },
-        enter: { width: GuildNavElement.getBoundingClientRect().width },
-        leave: { width: 0 },
-        config: {
+    loadedModules && (
+      <Animations.Transition
+        items={!hide}
+        from={{ width: 0 }}
+        enter={{ width: GuildNavElement.getBoundingClientRect().width }}
+        leave={{ width: 0 }}
+        config={{
           duration: SettingValues.get("sidebarAnimationMs", defaultSettings.sidebarAnimationMs),
-        },
-      }}>
-      {(style, show) =>
-        show && (
-          <Animations.animated.div
-            {...{
-              key: `${hide}`,
-              style,
-              className: "foldersRedesigned-sidebar",
-            }}>
-            <GuildsNav.Sidebar
-              {...{
-                className: `${GuildsNavClasses.guilds} foldersRedesigned-sidebar`,
-                style,
-              }}
-            />
-          </Animations.animated.div>
-        )
-      }
-    </Animations.Transition>
+        }}>
+        {(style, show) =>
+          show && (
+            <Animations.animated.div
+              key={`${hide}`}
+              style={style}
+              className="foldersRedesigned-sidebar">
+              <Modules.Sidebar
+                className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`}
+                style={style}
+              />
+            </Animations.animated.div>
+          )
+        }
+      </Animations.Transition>
+    )
   );
 });

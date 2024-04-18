@@ -1,9 +1,8 @@
-import { common, components } from "replugged";
+import { flux as Flux, React } from "replugged/common";
+import { Category, FormItem, SelectItem, SliderItem, SwitchItem } from "replugged/components";
 import { PluginLogger, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
-import { SortedGuildStore } from "../lib/requiredModules";
-const { flux: Flux, React } = common;
-const { SwitchItem, Category, SliderItem, FormItem, SelectItem } = components;
+import Modules from "../lib/requiredModules";
 import utils from "../lib/utils";
 import Types from "../types";
 import FolderSettings from "./FolderSettings";
@@ -16,20 +15,20 @@ export const registerSettings = (): void => {
 };
 
 export const Settings = (): React.ReactElement => {
+  const { SortedGuildStore } = Modules;
   const GuildFolders = Flux.useStateFromStores([SortedGuildStore], () =>
     SortedGuildStore.getGuildFolders().filter((f) => f.folderId),
   );
   const guildFolderSettingComponents = GuildFolders.map(({ folderId, folderName }, index) => (
     <FormItem
-      {...{
-        key: folderName ?? `Server Folder #${index + 1}`,
-        divider: true,
-        style: {
-          marginBottom: "6px",
-        },
+      key={folderName ?? `Server Folder #${index + 1}`}
+      divider={true}
+      style={{
+        marginBottom: "6px",
       }}>
       <FolderSettings
-        {...{ folderId, key: `${SettingValues.get("sidebar", defaultSettings.sidebar)}` }}
+        folderId={folderId}
+        key={`${SettingValues.get("sidebar", defaultSettings.sidebar)}`}
       />
     </FormItem>
   ));
@@ -42,101 +41,81 @@ export const Settings = (): React.ReactElement => {
   }, [generalOpen, folderOpen]);
 
   return (
-    <div {...{ key }}>
+    <div key={key}>
       <Category
-        {...{
-          title: "General Settings",
-          open: generalOpen,
-          onChange: () => {
-            setGeneralOpen((prev) => !prev);
-            setFolderOpen(false);
-          },
+        title="General Settings"
+        open={generalOpen}
+        onChange={() => {
+          setGeneralOpen((prev) => !prev);
+          setFolderOpen(false);
         }}>
         <SwitchItem
-          {...{
-            ...utils.useSetting(SettingValues, "sidebar", defaultSettings.sidebar),
-            note: "Display servers from folder on dedicated sidebar",
-          }}>
+          {...utils.useSetting(SettingValues, "sidebar", defaultSettings.sidebar)}
+          note="Display servers from folder on dedicated sidebar">
           Sidebar
         </SwitchItem>
         <SwitchItem
-          {...{
-            ...utils.useSetting(
-              SettingValues,
-              "sidebarAnimation",
-              defaultSettings.sidebarAnimation,
-            ),
-            note: "Animate the opening and closing of the dedicated folder sidebar",
-          }}>
+          {...utils.useSetting(SettingValues, "folderInSidebar", defaultSettings.folderInSidebar)}
+          note="Show the open folder itself in dedicated folder sidebar">
+          Folder in Sidebar
+        </SwitchItem>
+        <SwitchItem
+          {...utils.useSetting(SettingValues, "sidebarAnimation", defaultSettings.sidebarAnimation)}
+          note="Animate the opening and closing of the dedicated folder sidebar">
           Sidebar Animation
         </SwitchItem>
         <SliderItem
-          {...{
-            ...utils.useSetting(
-              SettingValues,
-              "sidebarAnimationMs",
-              defaultSettings.sidebarAnimationMs,
-            ),
-            onValueRender: (value) => `${value.toFixed(1)}ms`,
-            minValue: 100,
-            maxValue: 300,
-            note: "How much time the animation for sidebar take in ms",
-          }}>
+          {...utils.useSetting(
+            SettingValues,
+            "sidebarAnimationMs",
+            defaultSettings.sidebarAnimationMs,
+          )}
+          onValueRender={(value) => `${value.toFixed(1)}ms`}
+          minValue={100}
+          maxValue={300}
+          note="How much time the animation for sidebar take in ms">
           Animation Time
         </SliderItem>
         <SwitchItem
-          {...{
-            ...utils.useSetting(SettingValues, "closeAllFolders", defaultSettings.closeAllFolders),
-            note: "Close all folders when selecting a server not in a folder or DMs/home",
-          }}>
+          {...utils.useSetting(SettingValues, "closeAllFolders", defaultSettings.closeAllFolders)}
+          note="Close all folders when selecting a server not in a folder or DMs/home">
           Close All
         </SwitchItem>
         <SwitchItem
-          {...{
-            ...utils.useSetting(SettingValues, "forceOpen", defaultSettings.forceOpen),
-            note: "Force a folder to open when switching to a server of that folder",
-          }}>
+          {...utils.useSetting(SettingValues, "forceOpen", defaultSettings.forceOpen)}
+          note="Force a folder to open when switching to a server of that folder">
           Force Open
         </SwitchItem>
         <SwitchItem
-          {...{
-            ...utils.useSetting(SettingValues, "closeOthers", defaultSettings.closeOthers),
-            note: "Close other folders when opening a folder",
-          }}>
+          {...utils.useSetting(SettingValues, "closeOthers", defaultSettings.closeOthers)}
+          note="Close other folders when opening a folder">
           Close Others
         </SwitchItem>
         <SliderItem
-          {...{
-            ...utils.useSetting(SettingValues, "iconSize", defaultSettings.iconSize),
-            onValueRender: (value) => `${value.toFixed(1)}%`,
-            minValue: 75,
-            maxValue: 100,
-            note: "How much area to cover with custom icon",
-          }}>
+          {...utils.useSetting(SettingValues, "iconSize", defaultSettings.iconSize)}
+          onValueRender={(value) => `${value.toFixed(1)}%`}
+          minValue={75}
+          maxValue={100}
+          note="How much area to cover with custom icon">
           Icon Size
         </SliderItem>
       </Category>
       <Category
-        {...{
-          title: "Folder Settings",
-          open: folderOpen,
-          onChange: () => {
-            setFolderOpen((prev) => !prev);
-            setGeneralOpen(false);
-          },
-          key: `${SettingValues.get("sidebar", defaultSettings.sidebar)}`,
-        }}>
+        title="Folder Settings"
+        open={folderOpen}
+        onChange={() => {
+          setFolderOpen((prev) => !prev);
+          setGeneralOpen(false);
+        }}
+        key={`${SettingValues.get("sidebar", defaultSettings.sidebar)}`}>
         <SelectItem
-          {...{
-            note: "Select folder to manage settings of",
-            disabled: false,
-            options: GuildFolders.map(({ folderName }, index) => ({
-              label: folderName ?? `Server Folder #${index + 1}`,
-              value: folderName ?? `Server Folder #${index + 1}`,
-            })),
-            value: selectedFolder,
-            onChange: (e) => setSelectedFolder(e),
-          }}>
+          note="Select folder to manage settings of"
+          options={GuildFolders.map(({ folderName }, index) => ({
+            label: folderName ?? `Server Folder #${index + 1}`,
+            value: folderName ?? `Server Folder #${index + 1}`,
+          }))}
+          value={selectedFolder}
+          onChange={(e) => setSelectedFolder(e)}>
           Choose Folder
         </SelectItem>
         {guildFolderSettingComponents?.find?.((c) => c?.key === selectedFolder)}
