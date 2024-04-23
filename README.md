@@ -1,4 +1,4 @@
-### 
+### FoldersRedesigned
 
 Modifies the organization of Discord's folders and servers within a new container while introducing additional functionalities to streamline, personalize, and oversee your folders more efficiently.
 
