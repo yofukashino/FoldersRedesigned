@@ -19,18 +19,13 @@ export default (): void => {
     FolderConstructor,
     "default",
     (
-      [
-        {
-          expanded,
-          folderNode: { id },
-        },
-      ]: [{ expanded: boolean; folderNode: { id: string } }],
+      [{ expanded, folderNode }]: [{ expanded: boolean; folderNode: { id: string } }],
       res: React.ReactElement,
     ) => {
       res.props.children.props.children = (
         <FolderIcon
           expanded={expanded}
-          folderId={id}
+          folderId={folderNode?.id}
           originalChildren={res.props.children.props.children}
         />
       );

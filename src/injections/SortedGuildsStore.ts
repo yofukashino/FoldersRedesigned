@@ -2,10 +2,11 @@ import { lodash } from "replugged/common";
 import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import Modules from "../lib/requiredModules";
+import Utils from "../lib/utils";
 import Types from "../types";
 
 export default (): void => {
-  const { ExpandedGuildFolderStore, GuildTreeConstructors, SortedGuildStore } = Modules;
+  const { ExpandedGuildFolderStore, SortedGuildStore } = Modules;
   PluginInjector.after(
     SortedGuildStore,
     "getGuildsTree",
@@ -17,10 +18,14 @@ export default (): void => {
         return res;
       }
 
-      const ret: Types.GuildsTree = new GuildTreeConstructors.GuildsTree();
+      const ret: Types.GuildsTree = args[0]?.custom
+        ? Utils.getGuildTree("custom")
+        : Utils.getGuildTree("main");
       const expandedFolders = Array.from(
         ExpandedGuildFolderStore.getExpandedFolders() as Set<string>,
       );
+
+      ret.version = res.version;
 
       if (!args[0]?.custom) {
         ret.nodes = lodash.cloneDeep(res.nodes);

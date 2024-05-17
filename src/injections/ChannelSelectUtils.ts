@@ -2,6 +2,7 @@ import { guilds as UltimateGuildStore } from "replugged/common";
 import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import Modules from "../lib/requiredModules";
+
 export default (): void => {
   const { ChannelSelectUtils, ExpandedGuildFolderStore, GuildAndFolderUtils, SortedGuildStore } =
     Modules;

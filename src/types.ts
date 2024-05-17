@@ -6,7 +6,14 @@ import ReactSpring from "react-spring";
 export namespace Types {
   export import DefaultTypes = types;
   export type Tree = util.Tree;
-  export type GenericModule = Record<string, DefaultTypes.AnyFunction>;
+  export type GenericModule = Record<string, DefaultTypes.AnyFunction> & {
+    default: DefaultTypes.AnyFunction;
+  };
+  export interface GenericExport {
+    exports?: GenericModule;
+    id: string;
+    loaded: boolean;
+  }
   export interface GenericMemo {
     $$typeof: symbol;
     compare: DefaultTypes.AnyFunction;
@@ -141,32 +148,15 @@ export namespace Types {
     updateRolePermissions: DefaultTypes.AnyFunction;
     waitForGuild: DefaultTypes.AnyFunction;
   }
-  export interface Modules extends Record<string, unknown> {
-    loadModules?: () => Promise<void>;
-    Sidebar:
-      | null
-      | (React.ComponentType<{
-          className: string;
-          style?: React.StyleHTMLAttributes<React.ReactElement>;
-        }> &
-          DefaultTypes.AnyFunction);
-    ExpandedGuildFolderStore?: ExpandedGuildFolderStore;
-    SortedGuildStore?: SortedGuildStore;
-    GuildsNavClasses?: GuildsNavClasses;
-    GuildFolderSettingsModalPromise?: Promise<DefaultTypes.AnyFunction>;
-
-    GuildTreeConstructors?: { GuildsTree: () => void };
-    FolderConstructor?: { default: DefaultTypes.AnyFunction };
-
-    FolderUnreadPillConstructor?: GenericMemo;
-
-    Animations?: Animations;
-    ChannelSelectUtils?: ChannelSelectUtils;
-    GuildAndFolderUtils?: GuildAndFolderUtils;
-    ImageInput?: {
-      default: React.ComponentClass<{ onChange: (...args: unknown[]) => void }>;
-      processImage: DefaultTypes.AnyFunction;
-    };
+  export interface GuildTreeConstructors {
+    GuildsNodeType: Record<string, string>;
+    GuildsTree: () => void;
+    createFolderNode: DefaultTypes.AnyFunction;
+    createGuildNode: DefaultTypes.AnyFunction;
+  }
+  export interface ImageInput {
+    default: React.ComponentClass<{ onChange: (...args: unknown[]) => void }>;
+    processImage: DefaultTypes.AnyFunction;
   }
   export type Jsonifiable =
     | null
@@ -201,7 +191,27 @@ export namespace Types {
         : never
       : undefined
     : undefined;
-
+  export interface Modules extends Record<string, unknown> {
+    loadModules?: () => Promise<void>;
+    Sidebar:
+      | null
+      | (React.ComponentType<{
+          className: string;
+          style?: React.StyleHTMLAttributes<React.ReactElement>;
+        }> &
+          DefaultTypes.AnyFunction);
+    ExpandedGuildFolderStore?: ExpandedGuildFolderStore;
+    SortedGuildStore?: SortedGuildStore;
+    GuildsNavClasses?: GuildsNavClasses;
+    GuildFolderSettingsModalPromise?: Promise<DefaultTypes.AnyFunction>;
+    GuildTreeConstructors?: GuildTreeConstructors;
+    FolderConstructor?: GenericModule;
+    FolderUnreadPillConstructor?: GenericMemo;
+    Animations?: Animations;
+    ChannelSelectUtils?: ChannelSelectUtils;
+    GuildAndFolderUtils?: GuildAndFolderUtils;
+    ImageInput?: ImageInput;
+  }
   export interface Settings {
     folderData: {
       iconType: "CUSTOM" | "DEFAULT";

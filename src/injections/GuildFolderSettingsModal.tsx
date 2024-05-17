@@ -1,7 +1,7 @@
 import { PluginInjector } from "../index";
 import Modules from "../lib/requiredModules";
 import FolderSettings from "../Components/FolderSettings";
-import utils from "../lib/utils";
+import Utils from "../lib/utils";
 import Types from "../types";
 
 export default async (): Promise<void> => {
@@ -14,7 +14,7 @@ export default async (): Promise<void> => {
       res: React.ReactElement & Types.Tree,
       { props: { folderId } }: Types.DefaultTypes.ObjectExports & { props: { folderId: string } },
     ) => {
-      const container = utils.findInReactTree(
+      const container = Utils.findInReactTree(
         res,
         (c) => c?.type === "form",
       ) as React.ReactElement & Types.Tree;

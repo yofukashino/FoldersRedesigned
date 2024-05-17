@@ -1,15 +1,14 @@
 import { Injector, Logger, settings } from "replugged";
 import { defaultSettings } from "./lib/consts";
-import { registerSettings } from "./Components/Settings";
 import "./style.css";
 export const PluginInjector = new Injector();
 export const PluginLogger = Logger.plugin("FoldersRedesigned");
 export const SettingValues = await settings.init("dev.tharki.FoldersRedesigned", defaultSettings);
-
-import Injections from "./patches";
+import Settings from "./Components/Settings";
+import Injections from "./injections/index";
 
 export const start = (): void => {
-  registerSettings();
+  Settings.registerSettings();
   void Injections.applyInjections();
 };
 

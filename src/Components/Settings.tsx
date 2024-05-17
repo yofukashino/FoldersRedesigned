@@ -3,7 +3,7 @@ import { Category, FormItem, SelectItem, SliderItem, SwitchItem } from "replugge
 import { PluginLogger, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import Modules from "../lib/requiredModules";
-import utils from "../lib/utils";
+import Utils from "../lib/utils";
 import Types from "../types";
 import FolderSettings from "./FolderSettings";
 export const registerSettings = (): void => {
@@ -50,22 +50,22 @@ export const Settings = (): React.ReactElement => {
           setFolderOpen(false);
         }}>
         <SwitchItem
-          {...utils.useSetting(SettingValues, "sidebar", defaultSettings.sidebar)}
+          {...Utils.useSetting(SettingValues, "sidebar", defaultSettings.sidebar)}
           note="Display servers from folder on dedicated sidebar">
           Sidebar
         </SwitchItem>
         <SwitchItem
-          {...utils.useSetting(SettingValues, "folderInSidebar", defaultSettings.folderInSidebar)}
+          {...Utils.useSetting(SettingValues, "folderInSidebar", defaultSettings.folderInSidebar)}
           note="Show the open folder itself in dedicated folder sidebar">
           Folder in Sidebar
         </SwitchItem>
         <SwitchItem
-          {...utils.useSetting(SettingValues, "sidebarAnimation", defaultSettings.sidebarAnimation)}
+          {...Utils.useSetting(SettingValues, "sidebarAnimation", defaultSettings.sidebarAnimation)}
           note="Animate the opening and closing of the dedicated folder sidebar">
           Sidebar Animation
         </SwitchItem>
         <SliderItem
-          {...utils.useSetting(
+          {...Utils.useSetting(
             SettingValues,
             "sidebarAnimationMs",
             defaultSettings.sidebarAnimationMs,
@@ -77,22 +77,22 @@ export const Settings = (): React.ReactElement => {
           Animation Time
         </SliderItem>
         <SwitchItem
-          {...utils.useSetting(SettingValues, "closeAllFolders", defaultSettings.closeAllFolders)}
+          {...Utils.useSetting(SettingValues, "closeAllFolders", defaultSettings.closeAllFolders)}
           note="Close all folders when selecting a server not in a folder or DMs/home">
           Close All
         </SwitchItem>
         <SwitchItem
-          {...utils.useSetting(SettingValues, "forceOpen", defaultSettings.forceOpen)}
+          {...Utils.useSetting(SettingValues, "forceOpen", defaultSettings.forceOpen)}
           note="Force a folder to open when switching to a server of that folder">
           Force Open
         </SwitchItem>
         <SwitchItem
-          {...utils.useSetting(SettingValues, "closeOthers", defaultSettings.closeOthers)}
+          {...Utils.useSetting(SettingValues, "closeOthers", defaultSettings.closeOthers)}
           note="Close other folders when opening a folder">
           Close Others
         </SwitchItem>
         <SliderItem
-          {...utils.useSetting(SettingValues, "iconSize", defaultSettings.iconSize)}
+          {...Utils.useSetting(SettingValues, "iconSize", defaultSettings.iconSize)}
           onValueRender={(value) => `${value.toFixed(1)}%`}
           minValue={75}
           maxValue={100}
@@ -123,3 +123,5 @@ export const Settings = (): React.ReactElement => {
     </div>
   );
 };
+
+export default { registerSettings, Settings };

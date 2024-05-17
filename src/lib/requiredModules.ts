@@ -16,13 +16,17 @@ Modules.loadModules = async () => {
     webpack.filters.bySource("handleColorChange"),
   );
 
-  Modules.GuildTreeConstructors ??= await webpack
-    .waitForProps(["GuildsTree", "createFolderNode"], { raw: true })
-    .then(({ exports }) => exports);
+  Modules.GuildTreeConstructors ??= await webpack.waitForProps<Types.GuildTreeConstructors>(
+    "GuildsTree",
+    "createFolderNode",
+  );
   Modules.FolderConstructor ??= await webpack
-    .waitForModule(webpack.filters.bySource(".Messages.GUILD_FOLDER_TOOLTIP_A11Y_LABEL"), {
-      raw: true,
-    })
+    .waitForModule<Types.GenericExport>(
+      webpack.filters.bySource(".Messages.GUILD_FOLDER_TOOLTIP_A11Y_LABEL"),
+      {
+        raw: true,
+      },
+    )
     .then(({ exports }) => exports);
 
   Modules.FolderUnreadPillConstructor ??= await webpack.waitForModule<Types.GenericMemo>(
@@ -38,10 +42,7 @@ Modules.loadModules = async () => {
     "toggleGuildFolderExpand",
     "toggleGuildFolderExpand",
   ]);
-  Modules.ImageInput ??= await webpack.waitForProps<{
-    default: React.ComponentClass<{ onChange: (...args: unknown[]) => void }>;
-    processImage: Types.DefaultTypes.AnyFunction;
-  }>("processImage");
+  Modules.ImageInput ??= await webpack.waitForProps<Types.ImageInput>("processImage");
 };
 
 export default Modules;

@@ -1,7 +1,13 @@
 import { settings, util } from "replugged";
 import { React, lodash } from "replugged/common";
 import { PluginInjector } from "../index";
+import Modules from "./requiredModules";
 import Types from "../types";
+
+export const GuildTrees = {
+  custom: Modules.GuildTreeConstructors && new Modules.GuildTreeConstructors.GuildsTree(),
+  main: Modules.GuildTreeConstructors && new Modules.GuildTreeConstructors.GuildsTree(),
+};
 
 export const forceRerenderElement = async (selector: string): Promise<void> => {
   const element = await util.waitFor(selector);
@@ -13,6 +19,27 @@ export const forceRerenderElement = async (selector: string): Promise<void> => {
   });
   ownerInstance.forceUpdate(() => ownerInstance.forceUpdate(() => {}));
 };
+
+export const getGuildTree = (type: "main" | "custom" | string): Types.GuildsTree => {
+  switch (type) {
+    case "main": {
+      GuildTrees.main ??=
+        Modules.GuildTreeConstructors && new Modules.GuildTreeConstructors.GuildsTree();
+      return GuildTrees.main;
+    }
+    case "custom": {
+      GuildTrees.custom ??=
+        Modules.GuildTreeConstructors && new Modules.GuildTreeConstructors.GuildsTree();
+      return GuildTrees.custom;
+    }
+    default: {
+      GuildTrees[type] ??=
+        Modules.GuildTreeConstructors && new Modules.GuildTreeConstructors.GuildsTree();
+      return GuildTrees[type];
+    }
+  }
+};
+
 export const waitForProps = async (
   obj: Record<string, unknown>,
   prop: string,
@@ -99,7 +126,9 @@ export const useSettingArray = <
 
 export default {
   ...util,
+  GuildTrees,
   forceRerenderElement,
+  getGuildTree,
   waitForProps,
   useSetting,
   useSettingArray,
