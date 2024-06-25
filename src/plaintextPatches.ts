@@ -4,23 +4,19 @@ export default [
     find: "guildsnav",
     replacements: [
       {
-        match: /themeOverride:\w+/,
-        replace: (suffix: string) => `className,${suffix},`,
-      },
-      {
         match: "getGuildsTree()",
-        replace: () => `getGuildsTree({custom:className?.includes?.("foldersRedesigned-sidebar")})`,
+        replace: () => `getGuildsTree({custom:arguments[0]?.custom})`,
       },
       {
         match:
-          /let \w+=\(0,\w+.default\)\("guildsnav"\);return\(0,\w+\.jsx\)\(\w+\.ListNavigatorProvider,{navigator:\w+,children:\(0,\w+\.jsx\)\((\w+)/,
+          /let \w+=\(0,\w+.\w+\)\("guildsnav"\);return\(0,\w+\.jsx\)\(\w+\.\w+,{navigator:\w+,children:\(0,\w+\.jsx\)\((\w+)/,
         replace: (prefix: string, fn: string) =>
           `${prefix}=replugged.plugins.getExports("dev.tharki.FoldersRedesigned")?._assignSidebar?.(${fn})??${fn}`,
       },
     ],
   },
   {
-    find: ".AnalyticsSections.RTC_CONNECTION_PANEL",
+    find: ".RTC_CONNECTION_PANEL,",
     replacements: [
       {
         match: /\.guilds,themeOverride:\w+}\),/,

@@ -196,6 +196,7 @@ export namespace Types {
     Sidebar:
       | null
       | (React.ComponentType<{
+          custom: boolean;
           className: string;
           style?: React.StyleHTMLAttributes<React.ReactElement>;
         }> &
@@ -204,13 +205,14 @@ export namespace Types {
     SortedGuildStore?: SortedGuildStore;
     GuildsNavClasses?: GuildsNavClasses;
     GuildFolderSettingsModalPromise?: Promise<DefaultTypes.AnyFunction>;
+    GuildTreeConstructorsModule?: GenericModule;
     GuildTreeConstructors?: GuildTreeConstructors;
     FolderConstructor?: GenericModule;
     FolderUnreadPillConstructor?: GenericMemo;
     Animations?: Animations;
     ChannelSelectUtils?: ChannelSelectUtils;
     GuildAndFolderUtils?: GuildAndFolderUtils;
-    ImageInput?: ImageInput;
+    ImageInput?: GenericModule;
   }
   export interface Settings {
     folderData: {

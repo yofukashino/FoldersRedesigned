@@ -1,16 +1,16 @@
 import Modules from "./lib/requiredModules";
 import Sidebar from "./Components/Sidebar";
+import Types from "./types";
+
 export const _renderCustomSidebar = () => {
   return <Sidebar />;
 };
-
-import Types from "./types";
 
 export const _assignSidebar = (
   fn: Types.DefaultTypes.AnyFunction,
 ): Types.DefaultTypes.AnyFunction => {
   if (Modules?.Sidebar) {
-    return fn;
+    return Modules?.Sidebar;
   }
   Object.defineProperty(Modules, "Sidebar", {
     get: () => fn,
@@ -20,5 +20,5 @@ export const _assignSidebar = (
     configurable: true,
   });
 
-  return fn;
+  return Modules?.Sidebar;
 };

@@ -1,3 +1,4 @@
+import { webpack } from "replugged";
 import { PluginInjector } from "../index";
 import Modules from "../lib/requiredModules";
 import FolderIcon from "../Components/FolderIcon";
@@ -5,9 +6,10 @@ import Types from "../types";
 
 export default (): void => {
   const { FolderConstructor, SortedGuildStore } = Modules;
+  const loader = webpack.getFunctionKeyBySource(FolderConstructor, "folderNode:");
   PluginInjector.before(
     FolderConstructor,
-    "default",
+    loader,
     (args: [{ folderNode: Types.GuildTreeItem }]) => {
       args[0].folderNode = SortedGuildStore.getGuildsTree({ original: true }).nodes[
         args[0].folderNode.id
@@ -17,7 +19,7 @@ export default (): void => {
   );
   PluginInjector.after(
     FolderConstructor,
-    "default",
+    loader,
     (
       [{ expanded, folderNode }]: [{ expanded: boolean; folderNode: { id: string } }],
       res: React.ReactElement,

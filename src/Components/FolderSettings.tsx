@@ -1,8 +1,10 @@
+import { webpack } from "replugged";
 import { Button, Flex, SwitchItem, Text } from "replugged/components";
 import { SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import Modules from "../lib/requiredModules";
 import Utils from "../lib/utils";
+import Types from "../types";
 
 export default ({
   folderId,
@@ -10,6 +12,10 @@ export default ({
 }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   folderId: string;
 }): React.ReactElement => {
+  const ImageInputWrapper = webpack.getFunctionBySource<Types.ImageInput["default"]>(
+    Modules.ImageInput ?? {},
+    ".Messages.UNABLE_TO_PROCESS_IMAGE",
+  );
   const [iconType, setIconType] = Utils.useSettingArray(
     SettingValues,
     `folderData.${folderId}.iconType`,
@@ -25,7 +31,7 @@ export default ({
     `folderData.${folderId}.openIcon`,
     "",
   );
-  return Modules.ImageInput ? (
+  return ImageInputWrapper ? (
     <div {...props}>
       {SettingValues.get("sidebar", defaultSettings.sidebar) && (
         <SwitchItem
@@ -84,7 +90,7 @@ export default ({
                 </Button>
                 <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                   Change Icon
-                  <Modules.ImageInput.default
+                  <ImageInputWrapper
                     onChange={(img: string) => {
                       setClosedState(img);
                     }}
@@ -94,7 +100,7 @@ export default ({
             ) : (
               <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                 Add Icon
-                <Modules.ImageInput.default
+                <ImageInputWrapper
                   onChange={(img: string) => {
                     setClosedState(img);
                   }}
@@ -138,7 +144,7 @@ export default ({
                 </Button>
                 <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                   Change Icon
-                  <Modules.ImageInput.default
+                  <ImageInputWrapper
                     onChange={(img: string) => {
                       setOpenState(img);
                     }}
@@ -148,7 +154,7 @@ export default ({
             ) : (
               <Button color={Button.Colors.WHITE} look={Button.Looks.OUTLINED}>
                 Add Icon
-                <Modules.ImageInput.default
+                <ImageInputWrapper
                   onChange={(img: string) => {
                     setOpenState(img);
                   }}

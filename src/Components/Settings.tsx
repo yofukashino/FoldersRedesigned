@@ -1,4 +1,4 @@
-import { flux as Flux, React } from "replugged/common";
+import { fluxHooks as FluxHooks, React } from "replugged/common";
 import { Category, FormItem, SelectItem, SliderItem, SwitchItem } from "replugged/components";
 import { PluginLogger, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
@@ -16,7 +16,7 @@ export const registerSettings = (): void => {
 
 export const Settings = (): React.ReactElement => {
   const { SortedGuildStore } = Modules;
-  const GuildFolders = Flux.useStateFromStores([SortedGuildStore], () =>
+  const GuildFolders = FluxHooks.useStateFromStores([SortedGuildStore], () =>
     SortedGuildStore.getGuildFolders().filter((f) => f.folderId),
   );
   const guildFolderSettingComponents = GuildFolders.map(({ folderId, folderName }, index) => (

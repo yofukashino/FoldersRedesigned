@@ -1,5 +1,5 @@
 import { plugins } from "replugged";
-import { flux as Flux, React } from "replugged/common";
+import { fluxHooks as FluxHooks, React } from "replugged/common";
 import { SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import Modules from "../lib/requiredModules";
@@ -13,7 +13,7 @@ export default React.memo(() => {
     SortedGuildStore &&
     Modules.Sidebar;
   const expandedFolders = loadedModules
-    ? Flux.useStateFromStores([ExpandedGuildFolderStore, SortedGuildStore], () => {
+    ? FluxHooks.useStateFromStores([ExpandedGuildFolderStore, SortedGuildStore], () => {
         return (
           ExpandedGuildFolderStore &&
           Array.from(ExpandedGuildFolderStore?.getExpandedFolders() as Set<string>)
@@ -39,7 +39,10 @@ export default React.memo(() => {
       loadedModules && (
         <div key={`${hide}`} className="foldersRedesigned-sidebar">
           {hide ? null : (
-            <Modules.Sidebar className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`} />
+            <Modules.Sidebar
+              custom={true}
+              className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`}
+            />
           )}
         </div>
       )
@@ -62,6 +65,7 @@ export default React.memo(() => {
               style={style}
               className="foldersRedesigned-sidebar">
               <Modules.Sidebar
+                custom={true}
                 className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`}
                 style={style}
               />
