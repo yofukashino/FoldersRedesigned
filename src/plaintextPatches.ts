@@ -16,7 +16,7 @@ export default [
     ],
   },
   {
-    find: ".RTC_CONNECTION_PANEL,",
+    find: ".ImpressionNames.ACTIVITIES}",
     replacements: [
       {
         match: /\.guilds,themeOverride:\w+}\),/,
