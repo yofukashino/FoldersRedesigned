@@ -27,7 +27,6 @@ export default async (): Promise<void> => {
             c?.props?.["aria-label"] === i18n.Messages.SERVERS,
           100,
         ) as React.ReactElement & Types.Tree;
-        console.log(res);
         if (!scroller || !servers) {
           return res;
         }
