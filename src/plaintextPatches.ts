@@ -13,13 +13,13 @@ export default [
         replace: (prefix: string, fn: string) =>
           `${prefix}=replugged.plugins.getExports("dev.tharki.FoldersRedesigned")?._assignSidebar?.(${fn})??${fn}`,
       },
-    ],
+    ], 
   },
   {
-    find: ".ImpressionNames.ACTIVITIES}",
+    find: ".ImpressionNames.FRIENDS",
     replacements: [
       {
-        match: /\.guilds,themeOverride:\w+}\),/,
+        match: /\.container.{10,50}\.guilds,themeOverride:\w+}\),/,
         replace: (prefix) =>
           `${prefix}replugged.plugins.getExports("dev.tharki.FoldersRedesigned")?._renderCustomSidebar?.(),`,
       },

@@ -31,6 +31,15 @@ export default async (): Promise<void> => {
           return res;
         }
         scroller.props.children = servers.props.children;
+        const container = Utils.findInReactTree(
+          ret,
+          (c: React.ReactElement & Types.Tree) => c?.props?.children?.includes?.(scroller),
+          100,
+        ) as React.ReactElement & Types.Tree;
+        if (container) {
+          container.props.children = [scroller];
+        }
+
         return ret;
       };
       return res;
