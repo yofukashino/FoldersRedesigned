@@ -14,17 +14,20 @@ export default async (): Promise<void> => {
       const origial = res.props.children.props.children.bind(null);
       res.props.children.props.children = (...args) => {
         const ret = origial(...args);
+
         const scroller = Utils.findInReactTree(
           ret,
           (c: React.ReactElement & Types.Tree) =>
             typeof c?.props?.onScroll === "function" &&
-            c?.props?.children.some((i) => i?.props?.["aria-label"] === i18n.Messages.SERVERS),
+            c?.props?.onScroll &&
+            c?.props?.className?.includes("scroller"),
           100,
         ) as React.ReactElement & Types.Tree;
+
         const servers = Utils.findInReactTree(
           scroller,
           (c: React.ReactElement & Types.Tree) =>
-            c?.props?.["aria-label"] === i18n.Messages.SERVERS,
+            c?.type === "div" && Array.isArray(c.props.children),
           100,
         ) as React.ReactElement & Types.Tree;
         if (!scroller || !servers) {

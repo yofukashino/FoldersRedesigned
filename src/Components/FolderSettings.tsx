@@ -14,7 +14,7 @@ export default ({
 }): React.ReactElement => {
   const ImageInputWrapper = webpack.getFunctionBySource<Types.ImageInput["default"]>(
     Modules.ImageInput ?? {},
-    ".Messages.UNABLE_TO_PROCESS_IMAGE",
+    "this.handleFileChange",
   );
   const [iconType, setIconType] = Utils.useSettingArray(
     SettingValues,

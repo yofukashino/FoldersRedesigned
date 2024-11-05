@@ -34,13 +34,10 @@ Modules.loadModules = async () => {
   };
 
   Modules.FolderConstructor ??= await webpack
-    .waitForModule<Types.GenericExport>(
-      webpack.filters.bySource(".Messages.GUILD_FOLDER_TOOLTIP_A11Y_LABEL"),
-      {
-        raw: true,
-        timeout: 10000,
-      },
-    )
+    .waitForModule<Types.GenericExport>(webpack.filters.bySource(".expandedFolderIconWrapper"), {
+      raw: true,
+      timeout: 10000,
+    })
     .then(({ exports }) => exports)
     .catch(() => {
       throw new Error("Failed To Find FolderConstructor  Module");
@@ -85,12 +82,9 @@ Modules.loadModules = async () => {
     });
 
   Modules.ImageInput ??= await webpack
-    .waitForModule<Types.GenericModule>(
-      webpack.filters.bySource(".Messages.UNABLE_TO_PROCESS_IMAGE"),
-      {
-        timeout: 10000,
-      },
-    )
+    .waitForModule<Types.GenericModule>(webpack.filters.bySource("maxFileSizeBytes:1/0"), {
+      timeout: 10000,
+    })
     .catch(() => {
       throw new Error("Failed To Find ImageInput Module");
     });
