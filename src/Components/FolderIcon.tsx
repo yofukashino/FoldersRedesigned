@@ -2,11 +2,11 @@ import { React } from "replugged/common";
 import { SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 export default React.memo(
-  (props: { folderId: string; expanded: boolean; originalChildren: React.ReactElement }) => {
+  (props: { folderId: string; expanded: boolean; children: React.ReactElement }) => {
     const FolderData = SettingValues.get("folderData", {});
     const CurrentFolder = FolderData[props.folderId];
     if (CurrentFolder?.iconType !== "custom") {
-      return props.originalChildren;
+      return props.children;
     }
     if (props.expanded) {
       return CurrentFolder.openIcon ? (
@@ -19,7 +19,7 @@ export default React.memo(
           }}
         />
       ) : (
-        props.originalChildren ?? null
+        props.children ?? null
       );
     }
     return CurrentFolder.closedIcon ? (
@@ -32,7 +32,7 @@ export default React.memo(
         }}
       />
     ) : (
-      props.originalChildren ?? null
+      props.children ?? null
     );
   },
 );

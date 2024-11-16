@@ -28,8 +28,7 @@ export default (): void => {
         <FolderIcon
           expanded={expanded}
           folderId={folderNode?.id}
-          originalChildren={res.props.children.props.children}
-        />
+        >{res.props.children.props.children}</FolderIcon>
       );
       return res;
     },
