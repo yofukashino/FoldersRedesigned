@@ -25,10 +25,9 @@ export default (): void => {
       res: React.ReactElement,
     ) => {
       res.props.children.props.children = (
-        <FolderIcon
-          expanded={expanded}
-          folderId={folderNode?.id}
-        >{res.props.children.props.children}</FolderIcon>
+        <FolderIcon expanded={expanded} folderId={folderNode?.id}>
+          {res.props.children.props.children}
+        </FolderIcon>
       );
       return res;
     },
