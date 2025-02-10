@@ -19,7 +19,7 @@ export default [
     find: ".ImpressionNames.FRIENDS",
     replacements: [
       {
-        match: /\.container.{10,50}\.guilds,themeOverride:\w+}\),/,
+        match: /\.container.{10,50}\.guilds(\+" guilds")?,themeOverride:\w+}\),/,
         replace: (prefix) =>
           `${prefix}replugged.plugins.getExports("dev.tharki.FoldersRedesigned")?._renderCustomSidebar?.(),`,
       },

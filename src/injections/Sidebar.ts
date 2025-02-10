@@ -1,4 +1,3 @@
-import { i18n } from "replugged/common";
 import { PluginInjector } from "../index";
 import Modules from "../lib/requiredModules";
 import Utils from "../lib/utils";
@@ -9,12 +8,15 @@ export default async (): Promise<void> => {
   PluginInjector.after(
     Modules,
     "Sidebar",
-    ([{ className }]: [{ className: string }], res: React.ReactElement & Types.Tree) => {
+    ([{ className }]: [{ className: string }], res: Types.ReactTree) => {
       if (!className.includes("foldersRedesigned-sidebar")) return res;
-      const origial = res.props.children.props.children.bind(null);
-      res.props.children.props.children = (...args) => {
-        const ret = origial(...args);
-
+      const child = Utils.findInReactTree(res, (c: Types.ReactTree) =>
+        c?.props?.children?.toString?.()?.includes(".unreadMentionsIndicatorBottom"),
+      ) as Types.ReactTree;
+      if (!child) return res;
+      const original = child?.props.children.bind(null);
+      child.props.children = (...args) => {
+        const ret = original(...args);
         const scroller = Utils.findInReactTree(
           ret,
           (c: React.ReactElement & Types.Tree) =>

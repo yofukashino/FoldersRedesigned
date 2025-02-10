@@ -6,6 +6,7 @@ import ReactSpring from "react-spring";
 export namespace Types {
   export import DefaultTypes = types;
   export type Tree = util.Tree;
+  export type ReactTree = React.ReactElement & util.Tree;
   export type GenericModule = Record<string, DefaultTypes.AnyFunction> & {
     default: DefaultTypes.AnyFunction;
   };
