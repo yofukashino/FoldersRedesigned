@@ -19,3 +19,21 @@ div:has(> .foldersRedesigned-folderIcon) {
 .foldersRedesigned-sidebar [class*="unreadMentionsBar"] {
   display: none;
 }
+
+html:not(.visual-refresh) div[class^="sidebar"] > div.foldersRedesigned-sidebar {
+  display: none !important;
+}
+
+html:is(.visual-refresh) div[class^="container"] > div.foldersRedesigned-sidebar {
+  display: none !important;
+}
+
+html:is(.visual-refresh) div[class^="sidebar"]:has(> div.foldersRedesigned-sidebar) {
+  display: flex;
+  flex-direction: row;
+}
+
+body:has(div.foldersRedesigned-sidebar > nav.foldersRedesigned-sidebar)
+  [class^="sidebar"]:has(div.foldersRedesigned-sidebar > nav.foldersRedesigned-sidebar) {
+  width: calc(var(--custom-guild-sidebar-width) + 72px) !important;
+}

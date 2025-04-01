@@ -5,13 +5,10 @@ import { defaultSettings } from "../lib/consts";
 import Modules from "../lib/requiredModules";
 
 export default React.memo(() => {
-  const { Animations, ExpandedGuildFolderStore, GuildsNavClasses, SortedGuildStore } = Modules;
+  const { Animations, ExpandedGuildFolderStore, GuildsNav, GuildsNavClasses, SortedGuildStore } =
+    Modules;
   const loadedModules =
-    Animations &&
-    ExpandedGuildFolderStore &&
-    GuildsNavClasses &&
-    SortedGuildStore &&
-    Modules.Sidebar;
+    Animations && ExpandedGuildFolderStore && GuildsNavClasses && SortedGuildStore && GuildsNav;
   const expandedFolders = loadedModules
     ? FluxHooks.useStateFromStores([ExpandedGuildFolderStore, SortedGuildStore], () => {
         return (
@@ -39,7 +36,7 @@ export default React.memo(() => {
       loadedModules && (
         <div key={`${hide}`} className="foldersRedesigned-sidebar">
           {hide ? null : (
-            <Modules.Sidebar
+            <GuildsNav
               custom={true}
               className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`}
             />
@@ -64,7 +61,7 @@ export default React.memo(() => {
               key={`${hide}`}
               style={style}
               className="foldersRedesigned-sidebar">
-              <Modules.Sidebar
+              <GuildsNav
                 custom={true}
                 className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`}
                 style={style}

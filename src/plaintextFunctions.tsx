@@ -1,24 +1,34 @@
-import Modules from "./lib/requiredModules";
 import Sidebar from "./Components/Sidebar";
+import Utils from "./lib/utils";
 import Types from "./types";
 
 export const _renderCustomSidebar = () => {
   return <Sidebar />;
 };
 
-export const _assignSidebar = (
-  fn: Types.DefaultTypes.AnyFunction,
-): Types.DefaultTypes.AnyFunction => {
-  if (Modules?.Sidebar) {
-    return Modules?.Sidebar;
-  }
-  Object.defineProperty(Modules, "Sidebar", {
-    get: () => fn,
-    set: (value) => {
-      fn = value;
-    },
-    configurable: true,
-  });
+export const _reduceSidebar = ({ custom }, array, item, _index, orginal) => {
+  if (!custom) return orginal;
 
-  return Modules?.Sidebar;
+  const scroller = Utils.findInReactTree(
+    item,
+    (c: React.ReactElement & Types.Tree) =>
+      typeof c?.props?.onScroll === "function" &&
+      c?.props?.onScroll &&
+      c?.props?.className?.includes("scroller"),
+    100,
+  ) as React.ReactElement & Types.Tree;
+
+  if (Array.isArray(scroller?.props?.children)) {
+    const servers = scroller.props.children.find(
+      (c) =>
+        (c?.type === "div" ||
+          /className:\w+\(\)\(\w+.stack,\w+\)/.test(c?.type?.render?.toString?.() ?? "")) &&
+        Array.isArray(c.props.children),
+    );
+
+    scroller.props.children = servers?.props?.children;
+    array.push(scroller);
+  }
+
+  return array;
 };

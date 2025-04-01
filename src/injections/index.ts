@@ -6,7 +6,7 @@ import injectFolderUnreadPill from "./FolderUnreadPill";
 import injectGuildAndFolderUtils from "./GuildAndFolderUtils";
 import injectGuildFolderSettingsModal from "./GuildFolderSettingsModal";
 import injectSettingValues from "./SettingValues";
-import injectSidebar from "./Sidebar";
+
 import injectSortedGuildsStore from "./SortedGuildsStore";
 import Utils from "../lib/utils";
 export const applyInjections = async (): Promise<void> => {
@@ -17,7 +17,6 @@ export const applyInjections = async (): Promise<void> => {
   injectGuildAndFolderUtils();
   injectSettingValues();
   void injectGuildFolderSettingsModal();
-  void injectSidebar();
   injectSortedGuildsStore();
   void Utils.forceRerenderElement(`.${Modules.GuildsNavClasses?.guilds}`);
 };

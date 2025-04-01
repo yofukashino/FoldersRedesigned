@@ -19,4 +19,4 @@ export { default as Modules } from "./lib/requiredModules";
 
 export { Settings } from "./Components/Settings";
 
-export { _renderCustomSidebar, _assignSidebar } from "./plaintextFunctions";
+export { _renderCustomSidebar, _reduceSidebar } from "./plaintextFunctions";

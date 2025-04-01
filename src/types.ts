@@ -159,6 +159,12 @@ export namespace Types {
     default: React.ComponentClass<{ onChange: (...args: unknown[]) => void }>;
     processImage: DefaultTypes.AnyFunction;
   }
+  export type GuildsNav = React.ComponentType<{
+    custom: boolean;
+    className: string;
+    style?: React.StyleHTMLAttributes<React.ReactElement>;
+  }>;
+
   export type Jsonifiable =
     | null
     | undefined
@@ -194,14 +200,7 @@ export namespace Types {
     : undefined;
   export interface Modules extends Record<string, unknown> {
     loadModules?: () => Promise<void>;
-    Sidebar:
-      | null
-      | (React.ComponentType<{
-          custom: boolean;
-          className: string;
-          style?: React.StyleHTMLAttributes<React.ReactElement>;
-        }> &
-          DefaultTypes.AnyFunction);
+    GuildsNav?: GuildsNav;
     ExpandedGuildFolderStore?: ExpandedGuildFolderStore;
     SortedGuildStore?: SortedGuildStore;
     GuildsNavClasses?: GuildsNavClasses;

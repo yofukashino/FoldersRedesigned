@@ -40,16 +40,6 @@ export const getGuildTree = (type: "main" | "custom" | string): Types.GuildsTree
   }
 };
 
-export const waitForProps = async (
-  obj: Record<string, unknown>,
-  prop: string,
-): Promise<unknown> => {
-  while (!obj[prop]) {
-    await util.sleep(500);
-  }
-  return obj[prop];
-};
-
 export const useSetting = <
   T extends Record<string, Types.Jsonifiable>,
   D extends keyof T,
@@ -129,7 +119,6 @@ export default {
   GuildTrees,
   forceRerenderElement,
   getGuildTree,
-  waitForProps,
   useSetting,
   useSettingArray,
 };

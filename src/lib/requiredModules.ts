@@ -1,9 +1,7 @@
 import { webpack } from "replugged";
 import Types from "../types";
 
-const Modules: Types.Modules = {
-  Sidebar: null,
-};
+const Modules: Types.Modules = {};
 
 Modules.loadModules = async () => {
   Modules.GuildTreeConstructorsModule ??= await webpack
@@ -89,6 +87,14 @@ Modules.loadModules = async () => {
       throw new Error("Failed To Find ImageInput Module");
     });
 
+  Modules.GuildsNav ??= await webpack
+    .waitForModule<Types.GuildsNav>(webpack.filters.bySource("guildsnav"), {
+      timeout: 10000,
+    })
+    .catch(() => {
+      throw new Error("Failed To Find GuildsNav Module");
+    });
+
   Modules.GuildFolderSettingsModalPromise = webpack.waitForModule<Types.DefaultTypes.AnyFunction>(
     webpack.filters.bySource("handleColorChange"),
   );
@@ -97,6 +103,7 @@ Modules.loadModules = async () => {
     "ExpandedGuildFolderStore",
   );
   Modules.SortedGuildStore ??= webpack.getByStoreName<Types.SortedGuildStore>("SortedGuildStore");
+
   Modules.GuildsNavClasses ??= await webpack.waitForProps<Types.GuildsNavClasses>(
     "guilds",
     "sidebar",
