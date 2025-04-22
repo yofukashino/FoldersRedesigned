@@ -161,6 +161,7 @@ export namespace Types {
   }
   export type GuildsNav = React.ComponentType<{
     custom: boolean;
+    isOverlay: boolean;
     className: string;
     style?: React.StyleHTMLAttributes<React.ReactElement>;
   }>;

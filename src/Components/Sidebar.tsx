@@ -38,6 +38,7 @@ export default React.memo(() => {
           {hide ? null : (
             <GuildsNav
               custom={true}
+              isOverlay={true}
               className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`}
             />
           )}
@@ -63,6 +64,7 @@ export default React.memo(() => {
               className="foldersRedesigned-sidebar">
               <GuildsNav
                 custom={true}
+                isOverlay={true}
                 className={`${GuildsNavClasses.guilds} foldersRedesigned-sidebar`}
                 style={style}
               />

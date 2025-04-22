@@ -19,14 +19,9 @@ export const _reduceSidebar = ({ custom }, array, item, _index, orginal) => {
   ) as React.ReactElement & Types.Tree;
 
   if (Array.isArray(scroller?.props?.children)) {
-    const servers = scroller.props.children.find(
-      (c) =>
-        (c?.type === "div" ||
-          /className:\w+\(\)\(\w+.stack,\w+\)/.test(c?.type?.render?.toString?.() ?? "")) &&
-        Array.isArray(c.props.children),
-    );
-
-    scroller.props.children = servers?.props?.children;
+    const servers = scroller.props.children.find((c) => c?.props?.renderTreeNode);
+    Object.assign(servers.props, { custom });
+    scroller.props.children = servers;
     array.push(scroller);
   }
 
