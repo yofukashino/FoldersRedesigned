@@ -18,11 +18,6 @@ export default [
     find: ".ImpressionNames.FRIENDS",
     replacements: [
       {
-        match: /\.container.{10,75}\.guilds,themeOverride:\w+}\),/,
-        replace: (prefix: string) =>
-          `${prefix}replugged.plugins.getExports("dev.tharki.FoldersRedesigned")?._renderCustomSidebar?.(),`,
-      },
-      {
         match: /\.channelListHidden.{10,75}\.guilds,themeOverride:\w+}\),/,
         replace: (prefix) =>
           `${prefix}replugged.plugins.getExports("dev.tharki.FoldersRedesigned")?._renderCustomSidebar?.(),`,

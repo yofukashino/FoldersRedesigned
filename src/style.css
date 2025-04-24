@@ -14,26 +14,34 @@ div:has(> .foldersRedesigned-folderIcon) {
 .foldersRedesigned-sidebar {
   max-width: 72px;
   display: flex;
+  grid-area: customGuildsList;
+  margin-bottom: calc(var(--custom-app-panels-height, 0) + var(--space-xs));
 }
 
 .foldersRedesigned-sidebar [class*="unreadMentionsBar"] {
   display: none;
 }
 
-html:not(.visual-refresh) div[class^="sidebar"] > div.foldersRedesigned-sidebar {
-  display: none !important;
-}
-
-html:is(.visual-refresh) div[class^="container"] > div.foldersRedesigned-sidebar {
-  display: none !important;
-}
-
-html:is(.visual-refresh) div[class^="sidebar"]:has(> div.foldersRedesigned-sidebar) {
-  display: flex;
-  flex-direction: row;
-}
-
 body:has(div.foldersRedesigned-sidebar > nav.foldersRedesigned-sidebar)
   [class^="sidebar"]:has(div.foldersRedesigned-sidebar > nav.foldersRedesigned-sidebar) {
   width: calc(var(--custom-guild-sidebar-width) + 72px) !important;
+}
+
+@supports (grid-template-columns: subgrid) and (white-space-collapse: collapse) {
+  html:is(.visual-refresh)
+    div[class^="container"]
+    > div[class^="base"]:has(
+      > div > div > div.foldersRedesigned-sidebar > nav.foldersRedesigned-sidebar
+    ) {
+    grid-template-areas:
+      "titleBar titleBar titleBar titleBar"
+      "guildsList customGuildsList notice notice"
+      "guildsList customGuildsList channelsList page" !important;
+    grid-template-columns:
+      [start] min-content
+      [guildsEnd] min-content
+      [customGuildsEnd] min-content
+      [channelsEnd] 1fr
+      [end] !important;
+  }
 }
