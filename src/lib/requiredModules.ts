@@ -32,7 +32,7 @@ Modules.loadModules = async () => {
   };
 
   Modules.FolderConstructor ??= await webpack
-    .waitForModule<Types.GenericExport>(webpack.filters.bySource(".expandedFolderIconWrapper"), {
+    .waitForModule<Types.GenericExport>(webpack.filters.bySource(".folderIconWrapper"), {
       raw: true,
       timeout: 10000,
     })
